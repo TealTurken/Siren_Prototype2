@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -8,8 +9,14 @@ public class EnemyScript : MonoBehaviour
     public int enemySpeed = 10;
     public Rigidbody2D enemyRigidbody;
     public float moveCounter;
-    private bool enemyClickedOn = false;
     public TMP_Text winText;
+    public Quaternion selfAngle;
+    Quaternion angle_00 = Quaternion.Euler(0, 0, 0); // <-- origin angle
+    Quaternion angle_90 = Quaternion.Euler(0, 0, 90);
+    Quaternion angle_180 = Quaternion.Euler(0, 0, 180);
+    Quaternion angle_270 = Quaternion.Euler(0, 0, 270);
+    bool MouseUp;
+
     void Start()
     {
         Cursor.visible = true;
@@ -19,54 +26,13 @@ public class EnemyScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if ((Input.GetKeyDown(KeyCode.D)))
-        {
-            if (moveCounter > 0)
-            {
-                if (enemyClickedOn == false)
-                {
-                    enemyRigidbody.velocity = new Vector3(enemySpeed, 0, 0);
-                    transform.Rotate(0.0f, 0.0f, 90.0f, Space.World);
-                }
-                moveCounter = moveCounter - 1;
-                
-                //transform.Translate(Vector3.right * Time.deltaTime * enemySpeed, Space.World);
-                //if (Input.GetButton("Tilt Right"))
-
-
-            }
-        }
-        if ((Input.GetKeyDown(KeyCode.A)))
-        {
-            if (moveCounter > 0)
-            {
-                if (enemyClickedOn == false)
-                {
-                    enemyRigidbody.velocity = new Vector3(-enemySpeed, 0, 0);
-                    transform.Rotate(0.0f, 0.0f, -90.0f, Space.World);
-
-                }
-                
-                moveCounter = moveCounter - 1;
-                
-                //transform.Translate(Vector3.left * Time.deltaTime * enemySpeed, Space.World);
-                //if ((Input.GetKeyDown(KeyCode.A)))
-                //if (Input.GetButton("Tilt Left"))
-            }
-        }
-
     }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if ((collision.gameObject.tag == "Enemy"))
+        if ((collision.gameObject.tag == "Wall") & MouseUp == true)
         {
-             enemyRigidbody.velocity = new Vector3(0, 0, 0);
-           // Debug.Log("Hit Enemy");
-        }
-        if ((collision.gameObject.tag == "Wall"))
-        {
-            enemyRigidbody.velocity = new Vector3(0, 0, 0);
-           // Debug.Log("Hit Wall");
+            this.transform.SetParent(collision.transform);
         }
         if ((collision.gameObject.tag == "Goal"))
         {
@@ -76,13 +42,21 @@ public class EnemyScript : MonoBehaviour
         }
 
     }
+    
     private void OnMouseDown()
     {
-        enemyClickedOn = true;
-        Debug.Log("Mouse is held down");
+        MouseUp = false;
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction, Mathf.Infinity);
+        if (hit.collider != null && hit.collider.CompareTag("Piece"))
+        {
+            Debug.Log(hit.collider.name.ToString());
+            hit.collider.transform.SetParent(null);
+        }
     }
+
     private void OnMouseUp()
     {
-        enemyClickedOn = false;
+        MouseUp = true;
     }
 }

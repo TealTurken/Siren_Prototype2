@@ -9,6 +9,7 @@ public class Player_Controller : MonoBehaviour
     public TMP_Text gameOverText;
     public float moveCounter;
     public GameObject gameBoard;
+    public GameObject[] Pieces;
     public GameObject Enemy;
     public Quaternion currentAngle;
     Quaternion angle_00 = Quaternion.Euler(0, 0, 0); // <-- origin angle
@@ -22,6 +23,7 @@ public class Player_Controller : MonoBehaviour
         moveCounterText.text = "Moves Remaining: " + moveCounter.ToString();
         gameOverText.enabled = false;
         currentAngle = angle_00;
+        Pieces = GameObject.FindGameObjectsWithTag("Piece");
     }
 
     void Update()
@@ -66,19 +68,19 @@ public class Player_Controller : MonoBehaviour
             else currentAngle = angle_90;
             return;
         }
-        if (currentAngle == angle_90)
+        else if (currentAngle == angle_90)
         {
             if (rotateRight) currentAngle = angle_00;
             else currentAngle = angle_180;
             return;
         }
-        if (currentAngle == angle_180)
+        else if (currentAngle == angle_180)
         {
             if (rotateRight) currentAngle = angle_90;
             else currentAngle = angle_270;
             return;
         }
-        if (currentAngle == angle_270)
+        else if (currentAngle == angle_270)
         {
             if (rotateRight) currentAngle = angle_180;
             else currentAngle = angle_00;
@@ -86,9 +88,15 @@ public class Player_Controller : MonoBehaviour
         }
     }
 
+    void RotatePieces()
+    {
+    }
+
     public void RotateBoard() // handles actual rotation of the board
     {
         gameBoard.transform.rotation = Quaternion.Slerp(gameBoard.transform.rotation, currentAngle, 0.02f);
+        //foreach (GameObject piece in Pieces)
+            //piece.transform.rotation = Quaternion.Slerp(piece.transform.rotation, currentAngle, 0.02f);
     }
 
     private void UpdateMoveCounter()
@@ -101,7 +109,6 @@ public class Player_Controller : MonoBehaviour
             gameOverText.text = "Game Over".ToString();
         }
     }
-
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if ((collision.gameObject.tag == "Enemy"))
@@ -111,7 +118,6 @@ public class Player_Controller : MonoBehaviour
         }
         if ((collision.gameObject.tag == "Wall"))
         {
-            //enemyRigidbody.velocity = new Vector3(0, 0, 0);
             Debug.Log("Hit Wall");
         }
     }
