@@ -10,56 +10,98 @@ public class Player_Controller : MonoBehaviour
     public float moveCounter;
     public GameObject gameBoard;
     public GameObject Enemy;
-    //public int enemySpeed = 1;
-   // public Rigidbody2D enemyRigidbody;
+    public Quaternion currentAngle;
+    Quaternion angle_00 = Quaternion.Euler(0, 0, 0); // <-- origin angle
+    Quaternion angle_90 = Quaternion.Euler(0, 0, 90);
+    Quaternion angle_180 = Quaternion.Euler(0, 0, 180);
+    Quaternion angle_270 = Quaternion.Euler(0, 0, 270);
+    bool rotateRight; // whether or not the board is being rotated Right or Left
 
     void Start()
     {
         moveCounterText.text = "Moves Remaining: " + moveCounter.ToString();
         gameOverText.enabled = false;
+        currentAngle = angle_00;
     }
 
-    // Update is called once per frame
     void Update()
     {
+        #region Controls
+        // Rotate Right v
         if (Input.GetKeyDown(KeyCode.D))
         {
             if (moveCounter > 0)
             {
-                moveCounter = moveCounter - 1;
-                moveCounterText.text = "Moves Remaining: " + moveCounter.ToString();
-                gameBoard.transform.Rotate(0.0f, 0.0f, 90.0f);
-                //Enemy.transform.Rotate(0.0f, 0.0f, 90.0f, Space.World);
-                //Enemy.transform.Translate(Vector3.right * Time.deltaTime * enemySpeed, Space.World);
-
-
-
+                UpdateMoveCounter();
+                rotateRight = true;
+                DoRotate();
             }
         }
-        if ((Input.GetKeyDown(KeyCode.A)))
+        // Rotate Left v
+        if ((Input.GetKeyDown(KeyCode.A))) 
         {
             if (moveCounter > 0)
             {
-                moveCounter = moveCounter - 1;
-                moveCounterText.text = "Moves Remaining: " + moveCounter.ToString();
-                gameBoard.transform.Rotate(0.0f, 0.0f, -90.0f);
-                //Enemy.transform.Rotate(0.0f, 0.0f, -90.0f, Space.World);
-               // Enemy.transform.Translate(Vector3.left * Time.deltaTime * enemySpeed, Space.World);
-            }
-
-            if (Input.GetKeyDown(KeyCode.R))
-            {
-                SceneManager.LoadScene("SampleScene");
-                Debug.Log("restarted");
-            }
-
-            if (moveCounter <= 0)
-            {
-                gameOverText.enabled = true;
-                gameOverText.text = "Game Over".ToString();
+                rotateRight = false;
+                UpdateMoveCounter();
+                DoRotate();
             }
         }
+        // Restart v
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            SceneManager.LoadScene("SampleScene");
+            Debug.Log("restarted");
+        }
+        #endregion controls
+        
+        RotateBoard();
     }
+
+    void DoRotate() // input for directions
+    {
+        if (currentAngle == angle_00)
+        {
+            if (rotateRight) currentAngle = angle_270;
+            else currentAngle = angle_90;
+            return;
+        }
+        if (currentAngle == angle_90)
+        {
+            if (rotateRight) currentAngle = angle_00;
+            else currentAngle = angle_180;
+            return;
+        }
+        if (currentAngle == angle_180)
+        {
+            if (rotateRight) currentAngle = angle_90;
+            else currentAngle = angle_270;
+            return;
+        }
+        if (currentAngle == angle_270)
+        {
+            if (rotateRight) currentAngle = angle_180;
+            else currentAngle = angle_00;
+            return;
+        }
+    }
+
+    public void RotateBoard() // handles actual rotation of the board
+    {
+        gameBoard.transform.rotation = Quaternion.Slerp(gameBoard.transform.rotation, currentAngle, 0.02f);
+    }
+
+    private void UpdateMoveCounter()
+    {
+        moveCounter -= 1;
+        moveCounterText.text = "Moves Remaining: " + moveCounter.ToString();
+        if (moveCounter <= 0)
+        {
+            gameOverText.enabled = true;
+            gameOverText.text = "Game Over".ToString();
+        }
+    }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if ((collision.gameObject.tag == "Enemy"))
