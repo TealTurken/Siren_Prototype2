@@ -2,21 +2,32 @@ using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.InputSystem;
 
 public class Player_Controller : MonoBehaviour
 {
+    [Header("Parameters")]
     public TMP_Text moveCounterText;
     public TMP_Text gameOverText;
     public float moveCounter;
     public GameObject gameBoard;
+    [NonSerialized]
     public GameObject[] Pieces;
-    public GameObject Enemy;
+
+    [Space]
+
+    [NonSerialized]
     public Quaternion currentAngle;
     Quaternion angle_00 = Quaternion.Euler(0, 0, 0); // <-- origin angle
     Quaternion angle_90 = Quaternion.Euler(0, 0, 90);
     Quaternion angle_180 = Quaternion.Euler(0, 0, 180);
     Quaternion angle_270 = Quaternion.Euler(0, 0, 270);
-    bool rotateRight; // whether or not the board is being rotated Right or Left
+    bool isRotateRight; // whether or not the board is being rotated Right or Left
+    
+    [Header("Controls")]
+    public InputAction RotateRight;
+    public InputAction RotateLeft;
+    public InputAction Restart;
 
     void Start()
     {
@@ -26,31 +37,43 @@ public class Player_Controller : MonoBehaviour
         Pieces = GameObject.FindGameObjectsWithTag("Piece");
     }
 
+    private void OnEnable()
+    {
+        RotateRight.Enable();
+        RotateLeft.Enable();
+        Restart.Enable();
+    }
+
+    private void OnDisable()
+    {
+        RotateRight.Disable();
+        RotateLeft.Disable();
+        Restart.Disable();
+    }
+
     void Update()
     {
         #region Controls
-        // Rotate Right v
-        if (Input.GetKeyDown(KeyCode.D))
+        if (RotateRight.triggered)
         {
             if (moveCounter > 0)
             {
                 UpdateMoveCounter();
-                rotateRight = true;
+                isRotateRight = true;
                 DoRotate();
             }
         }
-        // Rotate Left v
-        if ((Input.GetKeyDown(KeyCode.A))) 
+        if (RotateLeft.triggered)
         {
             if (moveCounter > 0)
             {
-                rotateRight = false;
+                isRotateRight = false;
                 UpdateMoveCounter();
                 DoRotate();
             }
         }
         // Restart v
-        if (Input.GetKeyDown(KeyCode.R))
+        if (Restart.triggered)
         {
             SceneManager.LoadScene("SampleScene");
             Debug.Log("restarted");
@@ -64,25 +87,25 @@ public class Player_Controller : MonoBehaviour
     {
         if (currentAngle == angle_00)
         {
-            if (rotateRight) currentAngle = angle_270;
+            if (isRotateRight) currentAngle = angle_270;
             else currentAngle = angle_90;
             return;
         }
         else if (currentAngle == angle_90)
         {
-            if (rotateRight) currentAngle = angle_00;
+            if (isRotateRight) currentAngle = angle_00;
             else currentAngle = angle_180;
             return;
         }
         else if (currentAngle == angle_180)
         {
-            if (rotateRight) currentAngle = angle_90;
+            if (isRotateRight) currentAngle = angle_90;
             else currentAngle = angle_270;
             return;
         }
         else if (currentAngle == angle_270)
         {
-            if (rotateRight) currentAngle = angle_180;
+            if (isRotateRight) currentAngle = angle_180;
             else currentAngle = angle_00;
             return;
         }
