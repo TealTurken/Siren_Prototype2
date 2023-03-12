@@ -15,6 +15,7 @@ public class EnemyScript : MonoBehaviour
     private Color highLightColor;
     private Color selectedColor;
     private Player_Controller playerController;
+    private GameObject validwall;
 
     [Space]
 
@@ -40,8 +41,14 @@ public class EnemyScript : MonoBehaviour
         selectedColor = Color.grey;
     }
 
+    private void Update()
+    {
+        if (MouseUp && this.transform.parent == null) this.transform.SetParent(validwall.transform);
+    }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        if (collision.gameObject.CompareTag("Wall")) validwall = collision.gameObject;
         if ((collision.gameObject.CompareTag("Wall")) & MouseUp == true)
         {
             this.transform.SetParent(collision.transform); // magnetize when MouseUp is true (not clicked on)
