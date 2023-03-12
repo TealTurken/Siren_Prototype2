@@ -672,7 +672,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bf12c7a6f1863741969c16caa3f68ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemySpeed: 10
+  goal: {fileID: 0}
+  GameBoard: {fileID: 0}
   enemyRigidbody: {fileID: 863775061}
   moveCounter: 3
   winText: {fileID: 1703641060}
@@ -840,7 +841,7 @@ GameObject:
   - component: {fileID: 868603736}
   m_Layer: 0
   m_Name: BoxFrame
-  m_TagString: Untagged
+  m_TagString: Board
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -878,11 +879,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveCounterText: {fileID: 2127034084}
   gameOverText: {fileID: 9261823}
+  winText: {fileID: 0}
   moveCounter: 300
   gameBoard: {fileID: 868603732}
-  Pieces: []
-  Enemy: {fileID: 1872510289}
-  currentAngle: {x: 0, y: 0, z: 0, w: 0}
 --- !u!114 &868603736
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1276,7 +1275,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bf12c7a6f1863741969c16caa3f68ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemySpeed: 10
+  goal: {fileID: 0}
+  GameBoard: {fileID: 0}
   enemyRigidbody: {fileID: 1208383415}
   moveCounter: 3
   winText: {fileID: 1703641060}
@@ -1603,7 +1603,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bf12c7a6f1863741969c16caa3f68ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemySpeed: 10
+  goal: {fileID: 0}
+  GameBoard: {fileID: 0}
   enemyRigidbody: {fileID: 1308425801}
   moveCounter: 3
   winText: {fileID: 1703641060}
@@ -2167,7 +2168,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bf12c7a6f1863741969c16caa3f68ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemySpeed: 10
+  goal: {fileID: 94600972}
+  GameBoard: {fileID: 0}
   enemyRigidbody: {fileID: 1872510294}
   moveCounter: 3
   winText: {fileID: 1703641060}

@@ -28,9 +28,15 @@ public class Player_Controller : MonoBehaviour
     bool isRotateRight; // whether or not the board is being rotated Right or Left
     
     [Header("Controls")]
-    public InputAction RotateRight;
-    public InputAction RotateLeft;
-    public InputAction Restart;
+    private InputAction RotateRight;
+    private InputAction RotateLeft;
+    private InputAction Restart;
+    public PlayerInputActions playerControls;
+
+    private void Awake()
+    {
+        playerControls = new PlayerInputActions();
+    }
 
     void Start()
     {
@@ -44,8 +50,11 @@ public class Player_Controller : MonoBehaviour
 
     private void OnEnable()
     {
+        RotateRight = playerControls.GameBoard.RotateRight;
         RotateRight.Enable();
+        RotateLeft = playerControls.GameBoard.RotateLeft;
         RotateLeft.Enable();
+        Restart = playerControls.GameBoard.Restart;
         Restart.Enable();
     }
 
@@ -80,7 +89,7 @@ public class Player_Controller : MonoBehaviour
         // Restart v
         if (Restart.triggered)
         {
-            SceneManager.LoadScene("SampleScene");
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
             Debug.Log("restarted");
         }
         #endregion controls
@@ -119,7 +128,7 @@ public class Player_Controller : MonoBehaviour
     public void LevelCompletion()
     {
         goaledPieces++;
-        print(goaledPieces + " out of " + totalPieces);
+        print(goaledPieces + " out of " + totalPieces + " pieces goaled");
         if (goaledPieces >= totalPieces)
         {
             winText.enabled = true;
