@@ -9,10 +9,13 @@ public class Player_Controller : MonoBehaviour
     [Header("Parameters")]
     public TMP_Text moveCounterText;
     public TMP_Text gameOverText;
+    public TMP_Text winText;
     public float moveCounter;
     public GameObject gameBoard;
     [NonSerialized]
     public GameObject[] Pieces;
+    private int goaledPieces;
+    private int totalPieces;
 
     [Space]
 
@@ -35,6 +38,8 @@ public class Player_Controller : MonoBehaviour
         gameOverText.enabled = false;
         currentAngle = angle_00;
         Pieces = GameObject.FindGameObjectsWithTag("Piece");
+        foreach (GameObject piece in Pieces)
+            if (piece.GetComponent<EnemyScript>().goal != null) totalPieces++;
     }
 
     private void OnEnable()
@@ -111,8 +116,15 @@ public class Player_Controller : MonoBehaviour
         }
     }
 
-    void RotatePieces()
+    public void LevelCompletion()
     {
+        goaledPieces++;
+        print(goaledPieces + " out of " + totalPieces);
+        if (goaledPieces >= totalPieces)
+        {
+            winText.enabled = true;
+            winText.text = "You Win".ToString();
+        }
     }
 
     public void RotateBoard() // handles actual rotation of the board

@@ -6,7 +6,12 @@ using UnityEngine;
 
 public class EnemyScript : MonoBehaviour
 {
-    public int enemySpeed = 10;
+    public GameObject goal;
+    public GameObject GameBoard;
+    private Player_Controller playerController;
+
+    [Space]
+
     public Rigidbody2D enemyRigidbody;
     public float moveCounter;
     public TMP_Text winText;
@@ -21,6 +26,8 @@ public class EnemyScript : MonoBehaviour
     {
         Cursor.visible = true;
         winText.enabled = false;
+        if (GameBoard == null) GameBoard = GameObject.FindGameObjectWithTag("Board");
+        playerController = GameBoard.GetComponent<Player_Controller>();
     }
 
     // Update is called once per frame
@@ -30,17 +37,15 @@ public class EnemyScript : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if ((collision.gameObject.tag == "Wall") & MouseUp == true)
+        if ((collision.gameObject.CompareTag("Wall")) & MouseUp == true)
         {
             this.transform.SetParent(collision.transform);
         }
-        if ((collision.gameObject.tag == "Goal"))
+        if (collision.gameObject == goal)
         {
             Destroy(collision.gameObject);
-            winText.enabled = true;
-            winText.text = "You Win".ToString();
+            playerController.LevelCompletion();
         }
-
     }
     
     private void OnMouseDown()
