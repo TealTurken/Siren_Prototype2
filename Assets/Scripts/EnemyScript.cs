@@ -99,6 +99,7 @@ public class EnemyScript : MonoBehaviour
 
     public void HoverOver()
     {
+        // SPAWN PARTICLES HERE
         GetComponent<SpriteRenderer>().color = highLightColor;
     }
 
