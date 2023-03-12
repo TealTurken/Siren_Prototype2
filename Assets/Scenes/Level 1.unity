@@ -1691,7 +1691,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainCanvas: {fileID: 7796880456012135369}
   howToPlayCanvas: {fileID: 1355773688}
-  backButton: {fileID: 1930206807}
+  backCanvas: {fileID: 1355773688}
 --- !u!4 &1414687062
 Transform:
   m_ObjectHideFlags: 0
