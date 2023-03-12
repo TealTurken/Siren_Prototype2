@@ -25,7 +25,7 @@ public class Player_Controller : MonoBehaviour
     Quaternion angle_90 = Quaternion.Euler(0, 0, 90);
     Quaternion angle_180 = Quaternion.Euler(0, 0, 180);
     Quaternion angle_270 = Quaternion.Euler(0, 0, 270);
-    bool isRotateRight; // whether or not the board is being rotated Right or Left
+    public bool isRotateRight; // whether or not the board is being rotated Right or Left
     
     [Header("Controls")]
     private InputAction RotateRight;
@@ -97,7 +97,7 @@ public class Player_Controller : MonoBehaviour
         RotateBoard();
     }
 
-    void DoRotate() // input for directions
+    public void DoRotate() // input for directions
     {
         if (currentAngle == angle_00)
         {
