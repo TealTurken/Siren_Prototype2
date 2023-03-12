@@ -29,7 +29,27 @@ public class GameManager : MonoBehaviour
 
     public void ProceedLevel()
     {
-        if (level < numberOfLevels)
+        if (level == 0)
+        {
+            level += 1;
+            SceneManager.LoadScene($"Level {level}");
+        }
+        else if (level < numberOfLevels)
+        {
+            StartCoroutine(EndScreen(false));
+        }
+        else
+        {
+            StartCoroutine(EndScreen(true));
+        }
+
+    }
+
+    IEnumerator EndScreen(bool gameWon)
+    {
+        yield return new WaitForSeconds(1.5f);
+
+        if(!gameWon)
         {
             level += 1;
             SceneManager.LoadScene($"Level {level}");

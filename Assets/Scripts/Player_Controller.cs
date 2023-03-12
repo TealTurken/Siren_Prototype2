@@ -38,6 +38,11 @@ public class Player_Controller : MonoBehaviour
     private InputAction Select;
     public PlayerInputActions playerControls;
 
+    [SerializeField]
+    private AudioClip rotateClip;
+    [SerializeField]
+    private AudioSource playerAudioSource;
+
     private void Awake()
     {
         playerControls = new PlayerInputActions();
