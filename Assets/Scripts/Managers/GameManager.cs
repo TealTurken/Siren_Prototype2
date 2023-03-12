@@ -15,6 +15,9 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private float pitchScale;
 
+    [SerializeField]
+    private float timeBeforeSceneChange;
+
     private void Awake()
     {
         if (Instance != null)
@@ -42,12 +45,22 @@ public class GameManager : MonoBehaviour
         {
             StartCoroutine(EndScreen(true));
         }
+    }
 
+    public void RestartLevel()
+    {
+        StartCoroutine(FailScreen());
+    }
+
+    IEnumerator FailScreen()
+    {
+        yield return new WaitForSeconds(timeBeforeSceneChange);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     IEnumerator EndScreen(bool gameWon)
     {
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(timeBeforeSceneChange);
 
         if(!gameWon)
         {

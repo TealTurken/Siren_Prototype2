@@ -727,9 +727,12 @@ MonoBehaviour:
   moveCounterText: {fileID: 0}
   gameOverText: {fileID: 0}
   winText: {fileID: 0}
-  moveCounter: 300
+  levelText: {fileID: 0}
+  moveCounter: 10
   gameBoard: {fileID: 9180860051267185191}
   rotateClip: {fileID: 8300000, guid: fce8bd0eb581d2c44a44a8acf14caafa, type: 3}
+  victoryClip: {fileID: 8300000, guid: 80c382c187b47424e8a28d6196a0dda2, type: 3}
+  defeatClip: {fileID: 8300000, guid: 2cf049d6281c73a4c9df4a5049c6e2f4, type: 3}
   playerAudioSource: {fileID: 5060884110828599119}
 --- !u!114 &7745244397424158240
 MonoBehaviour:
@@ -771,7 +774,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: fce8bd0eb581d2c44a44a8acf14caafa, type: 3}
+  m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1

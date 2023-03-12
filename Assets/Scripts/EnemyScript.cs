@@ -30,6 +30,8 @@ public class EnemyScript : MonoBehaviour
     [NonSerialized]
     public bool MouseUp;
 
+    private AudioSource enemyAudioSource;
+
     void Start()
     {
         Cursor.visible = true;
@@ -39,6 +41,7 @@ public class EnemyScript : MonoBehaviour
         defaultColor = GetComponent<SpriteRenderer>().color;
         highLightColor = defaultColor.gamma * 2;
         selectedColor = Color.grey;
+        enemyAudioSource = gameObject.GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -51,7 +54,7 @@ public class EnemyScript : MonoBehaviour
         if (collision.gameObject.CompareTag("Wall"))
         {
             validwall = collision.gameObject;
-            // ** PLAY COLLISION SOUND HERE **
+            enemyAudioSource.Play();
         }
         if ((collision.gameObject.CompareTag("Wall")) & MouseUp == true)
         {

@@ -10,6 +10,7 @@ public class Player_Controller : MonoBehaviour
     public TMP_Text moveCounterText;
     public TMP_Text gameOverText;
     public TMP_Text winText;
+    public TMP_Text levelText;
     public float moveCounter;
     public GameObject gameBoard;
     [NonSerialized]
@@ -39,7 +40,7 @@ public class Player_Controller : MonoBehaviour
     public PlayerInputActions playerControls;
 
     [SerializeField]
-    private AudioClip rotateClip;
+    private AudioClip rotateClip, victoryClip, defeatClip;
     [SerializeField]
     private AudioSource playerAudioSource;
 
@@ -51,7 +52,9 @@ public class Player_Controller : MonoBehaviour
     void Start()
     {
         if (moveCounterText != null) moveCounterText.text = "Moves Remaining: " + moveCounter.ToString();
+        if (levelText != null && GameManager.Instance != null) levelText.text = "Level " + GameManager.Instance.level.ToString() + "/" + GameManager.Instance.numberOfLevels.ToString();
         if (gameOverText != null) gameOverText.enabled = false;
+        if (winText != null) winText.enabled = false;
         currentAngle = angle_00;
         Pieces = GameObject.FindGameObjectsWithTag("Piece");
         foreach (GameObject piece in Pieces)
@@ -94,7 +97,7 @@ public class Player_Controller : MonoBehaviour
                 isRotateRight = true;
                 UpdateMoveCounter();
                 DoRotate();
-                // ** PLAY ROTATE SOUND HERE **
+                playerAudioSource.PlayOneShot(rotateClip, 1.0f);
             }
         }
         
@@ -105,7 +108,7 @@ public class Player_Controller : MonoBehaviour
                 isRotateRight = false;
                 UpdateMoveCounter();
                 DoRotate();
-                // ** PLAY ROTATE SOUND HERE **
+                playerAudioSource.PlayOneShot(rotateClip, 1.0f);
             }
         }
         
@@ -211,7 +214,8 @@ public class Player_Controller : MonoBehaviour
         {
             winText.enabled = true;
             winText.text = "You Win".ToString();
-            // ** PLAY VICTORY SOUND HERE **
+            playerAudioSource.PlayOneShot(victoryClip, 1.0f);
+            GameManager.Instance.ProceedLevel();
         }
     }
 
@@ -227,8 +231,9 @@ public class Player_Controller : MonoBehaviour
         if (moveCounter <= 0)
         {
             gameOverText.enabled = true;
-            gameOverText.text = "Game Over".ToString();
-            // ** PLAY FAILURE SOUND HERE **
+            gameOverText.text = "You Lose".ToString();
+            playerAudioSource.PlayOneShot(defeatClip, 1.0f);
+            GameManager.Instance.RestartLevel();
         }
     }
     private void OnCollisionEnter2D(Collision2D collision)
