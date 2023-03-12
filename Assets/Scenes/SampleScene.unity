@@ -879,7 +879,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveCounterText: {fileID: 2127034084}
   gameOverText: {fileID: 9261823}
-  winText: {fileID: 0}
+  winText: {fileID: 1703641060}
   moveCounter: 300
   gameBoard: {fileID: 868603732}
 --- !u!114 &868603736

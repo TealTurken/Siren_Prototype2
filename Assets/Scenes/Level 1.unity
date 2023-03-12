@@ -1919,6 +1919,10 @@ PrefabInstance:
       propertyPath: moveCounterText
       value: 
       objectReference: {fileID: 313007297}
+    - target: {fileID: 7745244397424158240, guid: f1d8d477828cfbd4395cc7c5cb46f126, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 937723025}
     - target: {fileID: 8015697923386438540, guid: f1d8d477828cfbd4395cc7c5cb46f126, type: 3}
       propertyPath: m_SortingOrder
       value: 0
@@ -1970,6 +1974,10 @@ PrefabInstance:
     - target: {fileID: 9180860051267185191, guid: f1d8d477828cfbd4395cc7c5cb46f126, type: 3}
       propertyPath: m_Name
       value: BoxFrame
+      objectReference: {fileID: 0}
+    - target: {fileID: 9180860051267185191, guid: f1d8d477828cfbd4395cc7c5cb46f126, type: 3}
+      propertyPath: m_TagString
+      value: Board
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:

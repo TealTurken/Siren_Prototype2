@@ -25,6 +25,7 @@ public class Player_Controller : MonoBehaviour
     Quaternion angle_90 = Quaternion.Euler(0, 0, 90);
     Quaternion angle_180 = Quaternion.Euler(0, 0, 180);
     Quaternion angle_270 = Quaternion.Euler(0, 0, 270);
+    [NonSerialized]
     public bool isRotateRight; // whether or not the board is being rotated Right or Left
     
     [Header("Controls")]
@@ -40,8 +41,8 @@ public class Player_Controller : MonoBehaviour
 
     void Start()
     {
-        moveCounterText.text = "Moves Remaining: " + moveCounter.ToString();
-        gameOverText.enabled = false;
+        if (moveCounterText != null) moveCounterText.text = "Moves Remaining: " + moveCounter.ToString();
+        if (gameOverText != null) gameOverText.enabled = false;
         currentAngle = angle_00;
         Pieces = GameObject.FindGameObjectsWithTag("Piece");
         foreach (GameObject piece in Pieces)
@@ -86,7 +87,6 @@ public class Player_Controller : MonoBehaviour
                 DoRotate();
             }
         }
-        // Restart v
         if (Restart.triggered)
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
@@ -139,14 +139,13 @@ public class Player_Controller : MonoBehaviour
     public void RotateBoard() // handles actual rotation of the board
     {
         gameBoard.transform.rotation = Quaternion.Slerp(gameBoard.transform.rotation, currentAngle, 0.02f);
-        //foreach (GameObject piece in Pieces)
-            //piece.transform.rotation = Quaternion.Slerp(piece.transform.rotation, currentAngle, 0.02f);
+        print(gameBoard.transform.rotation);
     }
 
     private void UpdateMoveCounter()
     {
         moveCounter -= 1;
-        moveCounterText.text = "Moves Remaining: " + moveCounter.ToString();
+        if (moveCounterText != null) moveCounterText.text = "Moves Remaining: " + moveCounter.ToString();
         if (moveCounter <= 0)
         {
             gameOverText.enabled = true;
