@@ -213,7 +213,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3402939236253556388, guid: 4dfddc9a8bc0832418af3464ca76be4d, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.2
+      value: -0.18
       objectReference: {fileID: 0}
     - target: {fileID: 3402939236253556388, guid: 4dfddc9a8bc0832418af3464ca76be4d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -243,10 +243,31 @@ PrefabInstance:
       propertyPath: m_Name
       value: HowToPlayCanvas
       objectReference: {fileID: 0}
+    - target: {fileID: 8298060215855188709, guid: 4dfddc9a8bc0832418af3464ca76be4d, type: 3}
+      propertyPath: m_text
+      value: '<Rotate Board Left and Right>
+
+        A/D or Gamepad Left/Right
+
+
+        <Unmagnetize
+        Object>
+
+        LMB or Gamepad Up
+
+
+        Win by colliding the cog with
+        the goal.
+
+        Repair the factory''s broken machines!'
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7938664186303758138, guid: 4dfddc9a8bc0832418af3464ca76be4d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1352215848}
   m_SourcePrefab: {fileID: 100100000, guid: 4dfddc9a8bc0832418af3464ca76be4d, type: 3}
 --- !u!1 &264354990
 GameObject:
@@ -1465,6 +1486,18 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 3402939236253556388, guid: 4dfddc9a8bc0832418af3464ca76be4d, type: 3}
   m_PrefabInstance: {fileID: 2029794007}
   m_PrefabAsset: {fileID: 0}
+--- !u!225 &1220293503
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1220293501}
+  m_Enabled: 1
+  m_Alpha: 0
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
 --- !u!1 &1273001665 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 9180860051267185191, guid: f1d8d477828cfbd4395cc7c5cb46f126, type: 3}
@@ -1475,6 +1508,18 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 7938664186303758138, guid: 4dfddc9a8bc0832418af3464ca76be4d, type: 3}
   m_PrefabInstance: {fileID: 76955372}
   m_PrefabAsset: {fileID: 0}
+--- !u!225 &1352215848
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1352215847}
+  m_Enabled: 1
+  m_Alpha: 0
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
 --- !u!1 &1371278370
 GameObject:
   m_ObjectHideFlags: 0
@@ -1487,6 +1532,7 @@ GameObject:
   - component: {fileID: 1371278374}
   - component: {fileID: 1371278373}
   - component: {fileID: 1371278372}
+  - component: {fileID: 1371278375}
   m_Layer: 5
   m_Name: MainMenuCanvas
   m_TagString: Untagged
@@ -1580,6 +1626,18 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!225 &1371278375
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1371278370}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &1379548918
 GameObject:
   m_ObjectHideFlags: 0
@@ -2032,7 +2090,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainCanvas: {fileID: 1371278370}
   howToPlayCanvas: {fileID: 1352215847}
-  backButton: {fileID: 1220293501}
+  backCanvas: {fileID: 1220293501}
 --- !u!1 &1949333177
 GameObject:
   m_ObjectHideFlags: 0
@@ -2295,5 +2353,8 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 3402939236253556388, guid: 4dfddc9a8bc0832418af3464ca76be4d, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1704302118}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7938664186303758138, guid: 4dfddc9a8bc0832418af3464ca76be4d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1220293503}
   m_SourcePrefab: {fileID: 100100000, guid: 4dfddc9a8bc0832418af3464ca76be4d, type: 3}

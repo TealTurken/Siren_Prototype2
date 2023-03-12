@@ -6,17 +6,21 @@ public class MainMenuManager : MonoBehaviour
 {
     [SerializeField]
     private GameObject mainCanvas;
+    private CanvasGroup mainCanvasGroup;
     [SerializeField]
     private GameObject howToPlayCanvas;
+    private CanvasGroup howToPlayCanvasGroup;
     [SerializeField]
-    private GameObject backButton;
+    private GameObject backCanvas;
+    private CanvasGroup backCanvasGroup;
 
     private bool isHowToPlay = false;
 
     void Start()
     {
-        howToPlayCanvas.SetActive(false);
-        backButton.SetActive(false);
+        mainCanvasGroup = mainCanvas.GetComponent<CanvasGroup>();
+        howToPlayCanvasGroup = howToPlayCanvas.GetComponent<CanvasGroup>();
+        backCanvasGroup = backCanvas.GetComponent<CanvasGroup>();
     }
 
     public void PlayGame()
@@ -33,16 +37,34 @@ public class MainMenuManager : MonoBehaviour
     {
         if(!isHowToPlay)
         {
-            mainCanvas.SetActive(false);
-            howToPlayCanvas.SetActive(true);
-            backButton.SetActive(true);
+            mainCanvasGroup.alpha = 0f;
+            mainCanvasGroup.interactable = false;
+            mainCanvasGroup.blocksRaycasts = false;
+
+            howToPlayCanvasGroup.alpha = 1f;
+            howToPlayCanvasGroup.interactable = true;
+            howToPlayCanvasGroup.blocksRaycasts = true;
+
+            backCanvasGroup.alpha = 1f;
+            backCanvasGroup.interactable = true;
+            backCanvasGroup.blocksRaycasts = true;
+
             isHowToPlay = true;
         }
         else
         {
-            mainCanvas.SetActive(true);
-            howToPlayCanvas.SetActive(false);
-            backButton.SetActive(false);
+            mainCanvasGroup.alpha = 1f;
+            mainCanvasGroup.interactable = true;
+            mainCanvasGroup.blocksRaycasts = true;
+
+            howToPlayCanvasGroup.alpha = 0f;
+            howToPlayCanvasGroup.interactable = false;
+            howToPlayCanvasGroup.blocksRaycasts = false;
+
+            backCanvasGroup.alpha = 0f;
+            backCanvasGroup.interactable = false;
+            backCanvasGroup.blocksRaycasts = false;
+
             isHowToPlay = false;
         }
     }
