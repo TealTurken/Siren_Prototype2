@@ -16,6 +16,9 @@ public class MainMenuManager : MonoBehaviour
 
     private bool isHowToPlay = false;
 
+    [SerializeField]
+    private AudioSource clickSound;
+
     void Start()
     {
         mainCanvasGroup = mainCanvas.GetComponent<CanvasGroup>();
@@ -26,6 +29,7 @@ public class MainMenuManager : MonoBehaviour
     public void PlayGame()
     {
         GameManager.Instance.ProceedLevel();
+        clickSound.Play();
     }
 
     public void Quit()
@@ -49,6 +53,8 @@ public class MainMenuManager : MonoBehaviour
             backCanvasGroup.interactable = true;
             backCanvasGroup.blocksRaycasts = true;
 
+            clickSound.Play();
+
             isHowToPlay = true;
         }
         else
@@ -64,6 +70,8 @@ public class MainMenuManager : MonoBehaviour
             backCanvasGroup.alpha = 0f;
             backCanvasGroup.interactable = false;
             backCanvasGroup.blocksRaycasts = false;
+
+            clickSound.Play();
 
             isHowToPlay = false;
         }
