@@ -8,6 +8,12 @@ public class EnemyScript : MonoBehaviour
 {
     public GameObject goal;
     public GameObject GameBoard;
+    [NonSerialized]
+    public bool highlighted = false;
+    [NonSerialized]
+    public Color defaultColor;
+    private Color highLightColor;
+    private Color selectedColor;
     private Player_Controller playerController;
 
     [Space]
@@ -20,7 +26,8 @@ public class EnemyScript : MonoBehaviour
     Quaternion angle_90 = Quaternion.Euler(0, 0, 90);
     Quaternion angle_180 = Quaternion.Euler(0, 0, 180);
     Quaternion angle_270 = Quaternion.Euler(0, 0, 270);
-    bool MouseUp;
+    [NonSerialized]
+    public bool MouseUp;
 
     void Start()
     {
@@ -28,40 +35,68 @@ public class EnemyScript : MonoBehaviour
         winText.enabled = false;
         if (GameBoard == null) GameBoard = GameObject.FindGameObjectWithTag("Board");
         playerController = GameBoard.GetComponent<Player_Controller>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
+        defaultColor = GetComponent<SpriteRenderer>().color;
+        highLightColor = defaultColor.gamma * 2;
+        selectedColor = Color.grey;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if ((collision.gameObject.CompareTag("Wall")) & MouseUp == true)
         {
-            this.transform.SetParent(collision.transform);
+            this.transform.SetParent(collision.transform); // magnetize when MouseUp is true (not clicked on)
         }
         if (collision.gameObject == goal)
         {
             Destroy(collision.gameObject);
-            playerController.LevelCompletion();
+            playerController.LevelCompletion(); // update level completion progress
         }
     }
-    
+
     private void OnMouseDown()
     {
         MouseUp = false;
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction, Mathf.Infinity);
+        Debug.Log(hit.collider.name.ToString());
         if (hit.collider != null && hit.collider.CompareTag("Piece"))
         {
-            Debug.Log(hit.collider.name.ToString());
             hit.collider.transform.SetParent(null);
+            GetComponent<SpriteRenderer>().color = selectedColor;
         }
     }
-
     private void OnMouseUp()
     {
         MouseUp = true;
+        GetComponent<SpriteRenderer>().color = defaultColor;
+    }
+
+    private void OnMouseEnter()
+    {
+        highlighted = true;
+        HoverOver();
+    }
+
+    private void OnMouseExit()
+    {
+        highlighted = false;
+        Unhover();
+    }
+
+    public void HoverOver()
+    {
+        GetComponent<SpriteRenderer>().color = highLightColor;
+    }
+
+    public void Unhover()
+    {
+        MouseUp = true;
+        GetComponent<SpriteRenderer>().color = defaultColor;
+    }
+
+    public void Unmagnetize(GameObject piece)
+    {
+        piece.transform.SetParent(null);
+        GetComponent<SpriteRenderer>().color = selectedColor;
     }
 }

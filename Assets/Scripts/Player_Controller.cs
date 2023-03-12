@@ -14,6 +14,7 @@ public class Player_Controller : MonoBehaviour
     public GameObject gameBoard;
     [NonSerialized]
     public GameObject[] Pieces;
+    private int selectedPiece = 0; // always start with first piece selected.
     private int goaledPieces;
     private int totalPieces;
 
@@ -32,6 +33,9 @@ public class Player_Controller : MonoBehaviour
     private InputAction RotateRight;
     private InputAction RotateLeft;
     private InputAction Restart;
+    private InputAction CyclePieceRight;
+    private InputAction CyclePieceLeft;
+    private InputAction Select;
     public PlayerInputActions playerControls;
 
     private void Awake()
@@ -57,6 +61,12 @@ public class Player_Controller : MonoBehaviour
         RotateLeft.Enable();
         Restart = playerControls.GameBoard.Restart;
         Restart.Enable();
+        CyclePieceLeft = playerControls.GameBoard.CyclePieceLeft;
+        CyclePieceLeft.Enable();
+        CyclePieceRight = playerControls.GameBoard.CyclePieceRight;
+        CyclePieceRight.Enable();
+        Select = playerControls.GameBoard.Select;
+        Select.Enable();
     }
 
     private void OnDisable()
@@ -64,6 +74,9 @@ public class Player_Controller : MonoBehaviour
         RotateRight.Disable();
         RotateLeft.Disable();
         Restart.Disable();
+        CyclePieceLeft.Disable();
+        CyclePieceRight.Disable();
+        Select.Disable();
     }
 
     void Update()
@@ -73,11 +86,12 @@ public class Player_Controller : MonoBehaviour
         {
             if (moveCounter > 0)
             {
-                UpdateMoveCounter();
                 isRotateRight = true;
+                UpdateMoveCounter();
                 DoRotate();
             }
         }
+        
         if (RotateLeft.triggered)
         {
             if (moveCounter > 0)
@@ -87,13 +101,70 @@ public class Player_Controller : MonoBehaviour
                 DoRotate();
             }
         }
+        
         if (Restart.triggered)
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
             Debug.Log("restarted");
         }
-        #endregion controls
         
+        if (CyclePieceRight.triggered)
+        {
+            if (selectedPiece < Pieces.Length - 1)
+            {
+                Pieces[selectedPiece].GetComponent<EnemyScript>().highlighted = false;
+                Pieces[selectedPiece].GetComponent<EnemyScript>().Unhover();
+                selectedPiece++;
+                Pieces[selectedPiece].GetComponent<EnemyScript>().highlighted = true;
+                Pieces[selectedPiece].GetComponent<EnemyScript>().HoverOver();
+            }
+            else if (selectedPiece == Pieces.Length - 1)
+            {
+                Pieces[selectedPiece].GetComponent<EnemyScript>().highlighted = false;
+                Pieces[selectedPiece].GetComponent<EnemyScript>().Unhover();
+                selectedPiece = 0;
+                Pieces[selectedPiece].GetComponent<EnemyScript>().highlighted = true;
+                Pieces[selectedPiece].GetComponent<EnemyScript>().HoverOver();
+            }
+            print(Pieces[selectedPiece].name.ToString());
+        }
+        
+        if (CyclePieceLeft.triggered)
+        {
+            if (selectedPiece > 0)
+            {
+                Pieces[selectedPiece].GetComponent<EnemyScript>().highlighted = false;
+                Pieces[selectedPiece].GetComponent<EnemyScript>().Unhover();
+                selectedPiece--;
+                Pieces[selectedPiece].GetComponent<EnemyScript>().highlighted = true;
+                Pieces[selectedPiece].GetComponent<EnemyScript>().HoverOver();
+            }
+            else if (selectedPiece == 0)
+            {
+                Pieces[selectedPiece].GetComponent<EnemyScript>().highlighted = false;
+                Pieces[selectedPiece].GetComponent<EnemyScript>().Unhover();
+                selectedPiece = Pieces.Length - 1;
+                Pieces[selectedPiece].GetComponent<EnemyScript>().highlighted = true;
+                Pieces[selectedPiece].GetComponent<EnemyScript>().HoverOver();
+            }
+            print(Pieces[selectedPiece].name.ToString());
+        }
+
+        if (Select.triggered)
+        {
+            print("Select Triggered");
+            if (Pieces[selectedPiece].GetComponent<EnemyScript>().MouseUp == false)
+            {
+                Pieces[selectedPiece].GetComponent<EnemyScript>().MouseUp = true;
+                Pieces[selectedPiece].GetComponent<SpriteRenderer>().color = Pieces[selectedPiece].GetComponent<EnemyScript>().defaultColor;
+            }
+            else
+            {
+                Pieces[selectedPiece].GetComponent<EnemyScript>().MouseUp = false;
+                Pieces[selectedPiece].GetComponent<EnemyScript>().Unmagnetize(Pieces[selectedPiece]);
+            }
+        }
+        #endregion controls
         RotateBoard();
     }
 
@@ -139,7 +210,6 @@ public class Player_Controller : MonoBehaviour
     public void RotateBoard() // handles actual rotation of the board
     {
         gameBoard.transform.rotation = Quaternion.Slerp(gameBoard.transform.rotation, currentAngle, 0.02f);
-        print(gameBoard.transform.rotation);
     }
 
     private void UpdateMoveCounter()

@@ -1,5 +1,5 @@
 {
-    "name": "InputActions",
+    "name": "PlayerInputActions",
     "maps": [
         {
             "name": "GameBoard",
@@ -27,6 +27,33 @@
                     "name": "Restart",
                     "type": "Button",
                     "id": "100cf864-6aec-46a1-972a-37befc1096f2",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "CyclePieceRight",
+                    "type": "Button",
+                    "id": "da18905b-0d53-43f2-baf5-efbccf9a112d",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "CyclePieceLeft",
+                    "type": "Button",
+                    "id": "4e21b0e0-ddb2-4f35-854f-379392868562",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Select",
+                    "type": "Button",
+                    "id": "fab173d3-e8d2-4cf4-9fa8-9edd22b7efe7",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -130,6 +157,72 @@
                     "processors": "",
                     "groups": "Gamepad",
                     "action": "Restart",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "cd6f36bb-ebc5-48aa-aee8-a8d93983ec17",
+                    "path": "<Gamepad>/rightShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "CyclePieceRight",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "4b8ead77-f8ff-4a8a-a3e5-d88a18bd2622",
+                    "path": "<Keyboard>/rightArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "CyclePieceRight",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "36e3ea7a-85c8-43bb-ae41-0d25bdd4ec69",
+                    "path": "<Gamepad>/leftShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "CyclePieceLeft",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "15a59eeb-8c2c-4a63-9188-59d8e41e5afc",
+                    "path": "<Keyboard>/leftArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "CyclePieceLeft",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6e48118b-9a70-487d-882b-4f235f797ed9",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Select",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2b15e984-7ac9-4c33-ae3b-272277b0072a",
+                    "path": "<Keyboard>/enter",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "Select",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

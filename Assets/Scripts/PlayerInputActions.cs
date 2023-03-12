@@ -53,6 +53,33 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""CyclePieceRight"",
+                    ""type"": ""Button"",
+                    ""id"": ""da18905b-0d53-43f2-baf5-efbccf9a112d"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""CyclePieceLeft"",
+                    ""type"": ""Button"",
+                    ""id"": ""4e21b0e0-ddb2-4f35-854f-379392868562"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Select"",
+                    ""type"": ""Button"",
+                    ""id"": ""fab173d3-e8d2-4cf4-9fa8-9edd22b7efe7"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -152,6 +179,72 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
                     ""action"": ""Restart"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""cd6f36bb-ebc5-48aa-aee8-a8d93983ec17"",
+                    ""path"": ""<Gamepad>/rightShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""CyclePieceRight"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4b8ead77-f8ff-4a8a-a3e5-d88a18bd2622"",
+                    ""path"": ""<Keyboard>/rightArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""CyclePieceRight"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""36e3ea7a-85c8-43bb-ae41-0d25bdd4ec69"",
+                    ""path"": ""<Gamepad>/leftShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""CyclePieceLeft"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""15a59eeb-8c2c-4a63-9188-59d8e41e5afc"",
+                    ""path"": ""<Keyboard>/leftArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""CyclePieceLeft"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6e48118b-9a70-487d-882b-4f235f797ed9"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Select"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2b15e984-7ac9-4c33-ae3b-272277b0072a"",
+                    ""path"": ""<Keyboard>/enter"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Select"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -289,6 +382,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_GameBoard_RotateRight = m_GameBoard.FindAction("RotateRight", throwIfNotFound: true);
         m_GameBoard_RotateLeft = m_GameBoard.FindAction("RotateLeft", throwIfNotFound: true);
         m_GameBoard_Restart = m_GameBoard.FindAction("Restart", throwIfNotFound: true);
+        m_GameBoard_CyclePieceRight = m_GameBoard.FindAction("CyclePieceRight", throwIfNotFound: true);
+        m_GameBoard_CyclePieceLeft = m_GameBoard.FindAction("CyclePieceLeft", throwIfNotFound: true);
+        m_GameBoard_Select = m_GameBoard.FindAction("Select", throwIfNotFound: true);
         // Enemy
         m_Enemy = asset.FindActionMap("Enemy", throwIfNotFound: true);
         m_Enemy_MoveLeft = m_Enemy.FindAction("Move Left", throwIfNotFound: true);
@@ -358,6 +454,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_GameBoard_RotateRight;
     private readonly InputAction m_GameBoard_RotateLeft;
     private readonly InputAction m_GameBoard_Restart;
+    private readonly InputAction m_GameBoard_CyclePieceRight;
+    private readonly InputAction m_GameBoard_CyclePieceLeft;
+    private readonly InputAction m_GameBoard_Select;
     public struct GameBoardActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -365,6 +464,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         public InputAction @RotateRight => m_Wrapper.m_GameBoard_RotateRight;
         public InputAction @RotateLeft => m_Wrapper.m_GameBoard_RotateLeft;
         public InputAction @Restart => m_Wrapper.m_GameBoard_Restart;
+        public InputAction @CyclePieceRight => m_Wrapper.m_GameBoard_CyclePieceRight;
+        public InputAction @CyclePieceLeft => m_Wrapper.m_GameBoard_CyclePieceLeft;
+        public InputAction @Select => m_Wrapper.m_GameBoard_Select;
         public InputActionMap Get() { return m_Wrapper.m_GameBoard; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -383,6 +485,15 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Restart.started += instance.OnRestart;
             @Restart.performed += instance.OnRestart;
             @Restart.canceled += instance.OnRestart;
+            @CyclePieceRight.started += instance.OnCyclePieceRight;
+            @CyclePieceRight.performed += instance.OnCyclePieceRight;
+            @CyclePieceRight.canceled += instance.OnCyclePieceRight;
+            @CyclePieceLeft.started += instance.OnCyclePieceLeft;
+            @CyclePieceLeft.performed += instance.OnCyclePieceLeft;
+            @CyclePieceLeft.canceled += instance.OnCyclePieceLeft;
+            @Select.started += instance.OnSelect;
+            @Select.performed += instance.OnSelect;
+            @Select.canceled += instance.OnSelect;
         }
 
         private void UnregisterCallbacks(IGameBoardActions instance)
@@ -396,6 +507,15 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Restart.started -= instance.OnRestart;
             @Restart.performed -= instance.OnRestart;
             @Restart.canceled -= instance.OnRestart;
+            @CyclePieceRight.started -= instance.OnCyclePieceRight;
+            @CyclePieceRight.performed -= instance.OnCyclePieceRight;
+            @CyclePieceRight.canceled -= instance.OnCyclePieceRight;
+            @CyclePieceLeft.started -= instance.OnCyclePieceLeft;
+            @CyclePieceLeft.performed -= instance.OnCyclePieceLeft;
+            @CyclePieceLeft.canceled -= instance.OnCyclePieceLeft;
+            @Select.started -= instance.OnSelect;
+            @Select.performed -= instance.OnSelect;
+            @Select.canceled -= instance.OnSelect;
         }
 
         public void RemoveCallbacks(IGameBoardActions instance)
@@ -498,6 +618,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         void OnRotateRight(InputAction.CallbackContext context);
         void OnRotateLeft(InputAction.CallbackContext context);
         void OnRestart(InputAction.CallbackContext context);
+        void OnCyclePieceRight(InputAction.CallbackContext context);
+        void OnCyclePieceLeft(InputAction.CallbackContext context);
+        void OnSelect(InputAction.CallbackContext context);
     }
     public interface IEnemyActions
     {
