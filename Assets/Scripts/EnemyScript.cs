@@ -48,7 +48,11 @@ public class EnemyScript : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Wall")) validwall = collision.gameObject;
+        if (collision.gameObject.CompareTag("Wall"))
+        {
+            validwall = collision.gameObject;
+            // ** PLAY COLLISION SOUND HERE **
+        }
         if ((collision.gameObject.CompareTag("Wall")) & MouseUp == true)
         {
             this.transform.SetParent(collision.transform); // magnetize when MouseUp is true (not clicked on)

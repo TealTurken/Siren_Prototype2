@@ -94,6 +94,7 @@ public class Player_Controller : MonoBehaviour
                 isRotateRight = true;
                 UpdateMoveCounter();
                 DoRotate();
+                // ** PLAY ROTATE SOUND HERE **
             }
         }
         
@@ -104,6 +105,7 @@ public class Player_Controller : MonoBehaviour
                 isRotateRight = false;
                 UpdateMoveCounter();
                 DoRotate();
+                // ** PLAY ROTATE SOUND HERE **
             }
         }
         
@@ -209,6 +211,7 @@ public class Player_Controller : MonoBehaviour
         {
             winText.enabled = true;
             winText.text = "You Win".ToString();
+            // ** PLAY VICTORY SOUND HERE **
         }
     }
 
@@ -225,6 +228,7 @@ public class Player_Controller : MonoBehaviour
         {
             gameOverText.enabled = true;
             gameOverText.text = "Game Over".ToString();
+            // ** PLAY FAILURE SOUND HERE **
         }
     }
     private void OnCollisionEnter2D(Collision2D collision)
