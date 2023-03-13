@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
 
     public int level = 0;
-    public int numberOfLevels = 3;
+    public int numberOfLevels = 5;
 
     [SerializeField]
     private AudioSource backgroundMusic;
