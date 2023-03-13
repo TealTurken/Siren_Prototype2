@@ -31,6 +31,9 @@ public class EnemyScript : MonoBehaviour
     public bool MouseUp;
 
     private AudioSource enemyAudioSource;
+    
+    [SerializeField]
+    private GameObject highlightParticles;
 
     void Start()
     {
@@ -41,7 +44,7 @@ public class EnemyScript : MonoBehaviour
         defaultColor = GetComponent<SpriteRenderer>().color;
         highLightColor = defaultColor.gamma * 2;
         selectedColor = Color.grey;
-        enemyAudioSource = gameObject.GetComponent<AudioSource>();
+        enemyAudioSource = GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -99,7 +102,7 @@ public class EnemyScript : MonoBehaviour
 
     public void HoverOver()
     {
-        // SPAWN PARTICLES HERE
+        Instantiate(highlightParticles);
         GetComponent<SpriteRenderer>().color = highLightColor;
     }
 
