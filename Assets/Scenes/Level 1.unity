@@ -753,7 +753,7 @@ PrefabInstance:
     - target: {fileID: 3241413109705328351, guid: 091d60774a009c2478cff05b207a4e19, type: 3}
       propertyPath: GameBoard
       value: 
-      objectReference: {fileID: 1286882199}
+      objectReference: {fileID: 0}
     - target: {fileID: 7482870100036664921, guid: 091d60774a009c2478cff05b207a4e19, type: 3}
       propertyPath: m_Name
       value: Cog
@@ -1865,11 +1865,6 @@ Transform:
 Transform:
   m_CorrespondingSourceObject: {fileID: 5061521853156141340, guid: e9a52ef04cfd71941b306dd9513700eb, type: 3}
   m_PrefabInstance: {fileID: 1036040405}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &1286882199 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2084772959312838510, guid: f1d8d477828cfbd4395cc7c5cb46f126, type: 3}
-  m_PrefabInstance: {fileID: 1611256428135842601}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &1286882200 stripped
 Transform:
