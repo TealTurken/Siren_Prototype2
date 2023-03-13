@@ -53,8 +53,9 @@ public class GameManager : MonoBehaviour
     }
 
     IEnumerator FailScreen()
-    {
+    {   
         yield return new WaitForSeconds(timeBeforeSceneChange);
+
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 

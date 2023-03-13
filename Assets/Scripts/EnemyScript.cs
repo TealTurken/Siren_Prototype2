@@ -94,7 +94,7 @@ public class EnemyScript : MonoBehaviour
 
     public void HoverOver()
     {
-        Instantiate(highlightParticles);
+        Instantiate(highlightParticles, gameObject.transform.position, Quaternion.identity);
         GetComponent<SpriteRenderer>().color = highLightColor;
     }
 

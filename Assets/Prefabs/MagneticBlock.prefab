@@ -282,4 +282,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   goal: {fileID: 0}
   GameBoard: {fileID: 0}
-  highlightParticles: {fileID: 0}
+  highlightParticles: {fileID: 5955475791115473918, guid: 5750070f4c7730f4dbeea62b2680fb16, type: 3}
