@@ -19,14 +19,6 @@ public class EnemyScript : MonoBehaviour
 
     [Space]
 
-    public Rigidbody2D enemyRigidbody;
-    public float moveCounter;
-    public TMP_Text winText;
-    public Quaternion selfAngle;
-    Quaternion angle_00 = Quaternion.Euler(0, 0, 0); // <-- origin angle
-    Quaternion angle_90 = Quaternion.Euler(0, 0, 90);
-    Quaternion angle_180 = Quaternion.Euler(0, 0, 180);
-    Quaternion angle_270 = Quaternion.Euler(0, 0, 270);
     [NonSerialized]
     public bool MouseUp;
 
@@ -38,12 +30,11 @@ public class EnemyScript : MonoBehaviour
     void Start()
     {
         Cursor.visible = true;
-        winText.enabled = false;
         if (GameBoard == null) GameBoard = GameObject.FindGameObjectWithTag("Board");
         playerController = GameBoard.GetComponent<Player_Controller>();
-        defaultColor = GetComponent<SpriteRenderer>().color;
-        highLightColor = defaultColor.gamma * 2;
-        selectedColor = Color.grey;
+        defaultColor = Color.white;
+        highLightColor = Color.black;
+        selectedColor = Color.red;
         enemyAudioSource = GetComponent<AudioSource>();
     }
 
@@ -90,12 +81,14 @@ public class EnemyScript : MonoBehaviour
 
     private void OnMouseEnter()
     {
+        if (!MouseUp) return;
         highlighted = true;
         HoverOver();
     }
 
     private void OnMouseExit()
     {
+        if (!MouseUp) return;
         highlighted = false;
         Unhover();
     }
