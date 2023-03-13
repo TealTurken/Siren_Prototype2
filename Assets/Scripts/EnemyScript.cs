@@ -81,7 +81,6 @@ public class EnemyScript : MonoBehaviour
 
     private void OnMouseEnter()
     {
-        if (!MouseUp) return;
         highlighted = true;
         HoverOver();
     }
