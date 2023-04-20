@@ -24,8 +24,6 @@ public class MenuRotator : MonoBehaviour
         {
             controller.DoRotate();
             timePassed = 0.0f;
-
-            Debug.Log("yo");
         } 
     }
 }

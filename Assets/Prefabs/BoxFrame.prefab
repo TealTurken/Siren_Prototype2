@@ -689,6 +689,7 @@ GameObject:
   - component: {fileID: 3261042089546020519}
   - component: {fileID: 7745244397424158240}
   - component: {fileID: 5060884110828599119}
+  - component: {fileID: 5687208318880974241}
   m_Layer: 0
   m_Name: BoxFrame
   m_TagString: Untagged
@@ -773,7 +774,7 @@ AudioSource:
   m_GameObject: {fileID: 9180860051267185191}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 24300002, guid: 0c9306156b70eb443bf397ceabdfb7ce, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1
@@ -860,6 +861,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &5687208318880974241
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9180860051267185191}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc550dbcc27fa8b4eaa2e1d2c021d729, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  menuManager: {fileID: 0}
 --- !u!1001 &17830283125677668
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -9,6 +9,11 @@ TagManager:
   - Goal
   - Piece
   - Board
+  - HowToPlay
+  - Options
+  - MainCanvas
+  - HowToPlay Back
+  - Options Back
   layers:
   - Default
   - TransparentFX

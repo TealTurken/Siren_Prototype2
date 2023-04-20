@@ -7,10 +7,6 @@ using UnityEngine.InputSystem;
 public class Player_Controller : MonoBehaviour
 {
     [Header("Parameters")]
-    public TMP_Text moveCounterText;
-    public TMP_Text gameOverText;
-    public TMP_Text winText;
-    public TMP_Text levelText;
     public float moveCounter;
     public GameObject gameBoard;
     [NonSerialized]
@@ -44,6 +40,11 @@ public class Player_Controller : MonoBehaviour
     [SerializeField]
     private AudioSource playerAudioSource;
 
+    private TMP_Text moveCounterText;
+    private TMP_Text gameOverText;
+    private TMP_Text winText;
+    private TMP_Text levelText;
+
     private void Awake()
     {
         playerControls = new PlayerInputActions();
@@ -51,6 +52,13 @@ public class Player_Controller : MonoBehaviour
 
     void Start()
     {
+        if (Convert.ToBoolean(PlayerPrefs.GetInt("99Moves")) == true) moveCounter = 99;
+
+        if (GameObject.Find("MoveCounter") != null) moveCounterText = GameObject.Find("MoveCounter").GetComponent<TMP_Text>();
+        if (GameObject.Find("LoseText") != null) gameOverText = GameObject.Find("LoseText").GetComponent<TMP_Text>();
+        if (GameObject.Find("WinText") != null) winText = GameObject.Find("WinText").GetComponent<TMP_Text>();
+        if (GameObject.Find("LevelCounter") != null) levelText = GameObject.Find("LevelCounter").GetComponent<TMP_Text>();
+
         if (moveCounterText != null) moveCounterText.text = "Moves Remaining: " + moveCounter.ToString();
         if (levelText != null && GameManager.Instance != null) levelText.text = "Level " + GameManager.Instance.level.ToString() + "/" + GameManager.Instance.numberOfLevels.ToString();
         if (gameOverText != null) gameOverText.enabled = false;
@@ -97,7 +105,7 @@ public class Player_Controller : MonoBehaviour
                 isRotateRight = true;
                 UpdateMoveCounter();
                 DoRotate();
-                playerAudioSource.PlayOneShot(rotateClip, 1.0f);
+                playerAudioSource.PlayOneShot(rotateClip);
             }
         }
         
@@ -108,14 +116,13 @@ public class Player_Controller : MonoBehaviour
                 isRotateRight = false;
                 UpdateMoveCounter();
                 DoRotate();
-                playerAudioSource.PlayOneShot(rotateClip, 1.0f);
+                playerAudioSource.PlayOneShot(rotateClip);
             }
         }
         
         if (Restart.triggered)
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-            Debug.Log("restarted");
         }
         
         if (CyclePieceRight.triggered)
@@ -214,7 +221,7 @@ public class Player_Controller : MonoBehaviour
         {
             winText.enabled = true;
             winText.text = "You Win".ToString();
-            playerAudioSource.PlayOneShot(victoryClip, 1.0f);
+            playerAudioSource.PlayOneShot(victoryClip);
             GameManager.Instance.ProceedLevel();
         }
     }
@@ -232,7 +239,7 @@ public class Player_Controller : MonoBehaviour
         {
             gameOverText.enabled = true;
             gameOverText.text = "You Lose".ToString();
-            playerAudioSource.PlayOneShot(defeatClip, 1.0f);
+            playerAudioSource.PlayOneShot(defeatClip);
             GameManager.Instance.RestartLevel();
         }
     }
