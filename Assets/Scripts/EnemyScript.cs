@@ -16,6 +16,7 @@ public class EnemyScript : MonoBehaviour
     private Color selectedColor;
     private Player_Controller playerController;
     private GameObject validwall;
+    private ConstantForce2D constForce2D;
 
     [Space]
 
@@ -36,6 +37,7 @@ public class EnemyScript : MonoBehaviour
         highLightColor = Color.black;
         selectedColor = Color.red;
         enemyAudioSource = GetComponent<AudioSource>();
+        constForce2D = GetComponent<ConstantForce2D>();
     }
 
     private void Update()
@@ -53,6 +55,8 @@ public class EnemyScript : MonoBehaviour
         if ((collision.gameObject.CompareTag("Wall")) & MouseUp == true)
         {
             this.transform.SetParent(collision.transform); // magnetize when MouseUp is true (not clicked on)
+            constForce2D.force = new Vector2(0f, 0f);
+            constForce2D.relativeForce = new Vector2(0f, -9.8f);
         }
         if (collision.gameObject == goal)
         {
@@ -70,6 +74,8 @@ public class EnemyScript : MonoBehaviour
         if (hit.collider != null && hit.collider.CompareTag("Piece"))
         {
             hit.collider.transform.SetParent(null);
+            constForce2D.force = new Vector2(0f, -9.8f);
+            constForce2D.relativeForce = new Vector2(0f, 0f);
             GetComponent<SpriteRenderer>().color = selectedColor;
         }
     }
@@ -107,6 +113,8 @@ public class EnemyScript : MonoBehaviour
     public void Unmagnetize(GameObject piece)
     {
         piece.transform.SetParent(null);
+        constForce2D.force = new Vector2 (0f, -9.8f);
+        constForce2D.relativeForce = new Vector2(0f, 0f);
         GetComponent<SpriteRenderer>().color = selectedColor;
     }
 }
