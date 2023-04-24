@@ -12,6 +12,7 @@ public class EnemyScript : MonoBehaviour
     public bool highlighted = false;
     [NonSerialized]
     public Color defaultColor;
+    private float magnetizeTime = 0f;
     private Color highLightColor;
     private Color selectedColor;
     private Player_Controller playerController;
@@ -47,22 +48,52 @@ public class EnemyScript : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Wall"))
+            if (collision.gameObject.CompareTag("Wall")) // only concerned with this if our piece has no parent object
+            {
+                validwall = collision.gameObject;
+                enemyAudioSource.Play(); // impact with wall noise
+            }
+            if (collision.gameObject == goal)
+            {
+                Destroy(collision.gameObject);
+                playerController.LevelCompletion(); // update level completion progress
+            }
+    }
+
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Wall")) magnetizeTime += Time.deltaTime;
+        if (magnetizeTime >= 1.0f && !this.transform.parent.CompareTag("Wall")) // prevents sticking to walls from an initial contact
         {
-            validwall = collision.gameObject;
-            enemyAudioSource.Play();
-        }
-        if ((collision.gameObject.CompareTag("Wall")) & MouseUp == true)
-        {
-            this.transform.SetParent(collision.transform); // magnetize when MouseUp is true (not clicked on)
+            this.transform.SetParent(validwall.transform);
+            this.GetComponent<Rigidbody2D>().freezeRotation = false;
             constForce2D.force = new Vector2(0f, 0f);
-            constForce2D.relativeForce = new Vector2(0f, -9.8f);
+            if (validwall.transform.parent.name == "BottomTilemap") constForce2D.relativeForce = new Vector2(0f, -9.8f);
+            else constForce2D.relativeForce = new Vector2(0f, 9.8f);
+            switch (validwall.transform.parent.name.ToString()) // determining which wall the piece is attaching to by name
+            {
+                case "TopTilemap":
+                    this.transform.rotation = new Quaternion(0, 0, 180, 0);
+                    break;
+                case "LeftTilemap":
+                    this.transform.rotation = new Quaternion(0, 0, -90, 0);
+                    break;
+                case "RightTilemap":
+                    this.transform.rotation = new Quaternion(0, 0, 90, 0);
+                    break;
+                case "BottomTilemap":
+                    this.transform.rotation = new Quaternion(0, 0, 0, 0);
+                    break;
+                default:
+                    break;
+            }
+            this.GetComponent<Rigidbody2D>().freezeRotation = true;
         }
-        if (collision.gameObject == goal)
-        {
-            Destroy(collision.gameObject);
-            playerController.LevelCompletion(); // update level completion progress
-        }
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        magnetizeTime = 0f;
     }
 
     private void OnMouseDown()
@@ -73,10 +104,11 @@ public class EnemyScript : MonoBehaviour
         Debug.Log(hit.collider.name.ToString());
         if (hit.collider != null && hit.collider.CompareTag("Piece"))
         {
-            hit.collider.transform.SetParent(null);
+            hit.collider.transform.SetParent(this.transform.parent.parent);
             constForce2D.force = new Vector2(0f, -9.8f);
             constForce2D.relativeForce = new Vector2(0f, 0f);
             GetComponent<SpriteRenderer>().color = selectedColor;
+            magnetizeTime = 0f;
         }
     }
     private void OnMouseUp()
@@ -112,9 +144,10 @@ public class EnemyScript : MonoBehaviour
 
     public void Unmagnetize(GameObject piece)
     {
-        piece.transform.SetParent(null);
+        piece.transform.SetParent(this.transform.parent.parent);
         constForce2D.force = new Vector2 (0f, -9.8f);
         constForce2D.relativeForce = new Vector2(0f, 0f);
         GetComponent<SpriteRenderer>().color = selectedColor;
+        magnetizeTime = 0f;
     }
 }
