@@ -1713,7 +1713,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7938664186303758138, guid: 4dfddc9a8bc0832418af3464ca76be4d, type: 3}
       propertyPath: m_Name
-      value: Options Back Canvas
+      value: OptionsBackCanvas
       objectReference: {fileID: 0}
     - target: {fileID: 7938664186303758138, guid: 4dfddc9a8bc0832418af3464ca76be4d, type: 3}
       propertyPath: m_TagString
@@ -2857,6 +2857,7 @@ MonoBehaviour:
   backgroundMusic: {fileID: 591333316}
   pitchScale: 0.15
   timeBeforeSceneChange: 1.5
+  restartClicked: 0
 --- !u!4 &591333318
 Transform:
   m_ObjectHideFlags: 0
@@ -8101,6 +8102,119 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rotateInterval: 3.3104
   controller: {fileID: 0}
+--- !u!1001 &1813759241
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1345255744759995826, guid: a62afb6aae7622941bb06dc9cdb0f7b7, type: 3}
+      propertyPath: m_Alpha
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1345255744759995826, guid: a62afb6aae7622941bb06dc9cdb0f7b7, type: 3}
+      propertyPath: m_Interactable
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3402939236253556388, guid: a62afb6aae7622941bb06dc9cdb0f7b7, type: 3}
+      propertyPath: m_Pivot.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3402939236253556388, guid: a62afb6aae7622941bb06dc9cdb0f7b7, type: 3}
+      propertyPath: m_Pivot.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3402939236253556388, guid: a62afb6aae7622941bb06dc9cdb0f7b7, type: 3}
+      propertyPath: m_RootOrder
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3402939236253556388, guid: a62afb6aae7622941bb06dc9cdb0f7b7, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3402939236253556388, guid: a62afb6aae7622941bb06dc9cdb0f7b7, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3402939236253556388, guid: a62afb6aae7622941bb06dc9cdb0f7b7, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3402939236253556388, guid: a62afb6aae7622941bb06dc9cdb0f7b7, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3402939236253556388, guid: a62afb6aae7622941bb06dc9cdb0f7b7, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3402939236253556388, guid: a62afb6aae7622941bb06dc9cdb0f7b7, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3402939236253556388, guid: a62afb6aae7622941bb06dc9cdb0f7b7, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3402939236253556388, guid: a62afb6aae7622941bb06dc9cdb0f7b7, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3402939236253556388, guid: a62afb6aae7622941bb06dc9cdb0f7b7, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3402939236253556388, guid: a62afb6aae7622941bb06dc9cdb0f7b7, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3402939236253556388, guid: a62afb6aae7622941bb06dc9cdb0f7b7, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3402939236253556388, guid: a62afb6aae7622941bb06dc9cdb0f7b7, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3402939236253556388, guid: a62afb6aae7622941bb06dc9cdb0f7b7, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3402939236253556388, guid: a62afb6aae7622941bb06dc9cdb0f7b7, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3402939236253556388, guid: a62afb6aae7622941bb06dc9cdb0f7b7, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3402939236253556388, guid: a62afb6aae7622941bb06dc9cdb0f7b7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3402939236253556388, guid: a62afb6aae7622941bb06dc9cdb0f7b7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3402939236253556388, guid: a62afb6aae7622941bb06dc9cdb0f7b7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7938664186303758138, guid: a62afb6aae7622941bb06dc9cdb0f7b7, type: 3}
+      propertyPath: m_Name
+      value: QuitCanvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 7938664186303758138, guid: a62afb6aae7622941bb06dc9cdb0f7b7, type: 3}
+      propertyPath: m_TagString
+      value: Quit
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: a62afb6aae7622941bb06dc9cdb0f7b7, type: 3}
 --- !u!1001 &1824693170
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8384,19 +8498,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1949333180}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 591333319}
-        m_TargetAssemblyTypeName: MenuManager, Assembly-CSharp
-        m_MethodName: Quit
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &1949333180
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8930,7 +9032,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7938664186303758138, guid: 4dfddc9a8bc0832418af3464ca76be4d, type: 3}
       propertyPath: m_Name
-      value: HowToPlay BackCanvas
+      value: HowToPlayBackCanvas
       objectReference: {fileID: 0}
     - target: {fileID: 7938664186303758138, guid: 4dfddc9a8bc0832418af3464ca76be4d, type: 3}
       propertyPath: m_TagString

@@ -18,8 +18,14 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private float timeBeforeSceneChange;
 
+    public bool restartClicked = false;
+
+    private MenuManager menuManager;
+
     private void Awake()
     {
+        menuManager = GetComponent<MenuManager>();
+
         if (Instance != null)
         {
             Destroy(gameObject);
@@ -39,11 +45,11 @@ public class GameManager : MonoBehaviour
         }
         else if (level < numberOfLevels)
         {
-            StartCoroutine(EndScreen(false));
+            StartCoroutine(WinScreen(false));
         }
         else
         {
-            StartCoroutine(EndScreen(true));
+            StartCoroutine(WinScreen(true));
         }
     }
 
@@ -54,26 +60,32 @@ public class GameManager : MonoBehaviour
 
     IEnumerator FailScreen()
     {   
+        menuManager.LevelEndCanvas(false);
         yield return new WaitForSeconds(timeBeforeSceneChange);
-
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        menuManager.isMenuCanvasActive = false;
     }
 
-    IEnumerator EndScreen(bool gameWon)
+    IEnumerator WinScreen(bool gameWon)
     {
-        yield return new WaitForSeconds(timeBeforeSceneChange);
-
-        if(!gameWon)
+        if (!gameWon)
         {
+            menuManager.LevelEndCanvas(true);
+            yield return new WaitForSeconds(timeBeforeSceneChange);
             level += 1;
             SceneManager.LoadScene($"Level {level}");
-            backgroundMusic.pitch += pitchScale;
+            menuManager.isMenuCanvasActive = false;
+            backgroundMusic.pitch += pitchScale; 
         }
         else
         {
+            menuManager.GameEndCanvas();
+            yield return new WaitUntil(() => restartClicked == true);
             level = 0;
             SceneManager.LoadScene("Main Menu");
+            menuManager.isMenuCanvasActive = false;
             backgroundMusic.pitch = 1;
+            restartClicked = false;
         }
     }
 }

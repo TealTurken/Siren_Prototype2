@@ -41,8 +41,6 @@ public class Player_Controller : MonoBehaviour
     private AudioSource playerAudioSource;
 
     private TMP_Text moveCounterText;
-    private TMP_Text gameOverText;
-    private TMP_Text winText;
     private TMP_Text levelText;
 
     private void Awake()
@@ -55,14 +53,10 @@ public class Player_Controller : MonoBehaviour
         if (Convert.ToBoolean(PlayerPrefs.GetInt("99Moves")) == true) moveCounter = 99;
 
         if (GameObject.Find("MoveCounter") != null) moveCounterText = GameObject.Find("MoveCounter").GetComponent<TMP_Text>();
-        if (GameObject.Find("LoseText") != null) gameOverText = GameObject.Find("LoseText").GetComponent<TMP_Text>();
-        if (GameObject.Find("WinText") != null) winText = GameObject.Find("WinText").GetComponent<TMP_Text>();
         if (GameObject.Find("LevelCounter") != null) levelText = GameObject.Find("LevelCounter").GetComponent<TMP_Text>();
 
         if (moveCounterText != null) moveCounterText.text = "Moves Remaining: " + moveCounter.ToString();
         if (levelText != null && GameManager.Instance != null) levelText.text = "Level " + GameManager.Instance.level.ToString() + "/" + GameManager.Instance.numberOfLevels.ToString();
-        if (gameOverText != null) gameOverText.enabled = false;
-        if (winText != null) winText.enabled = false;
         currentAngle = angle_00;
         Pieces = GameObject.FindGameObjectsWithTag("Piece");
         foreach (GameObject piece in Pieces)
@@ -219,8 +213,6 @@ public class Player_Controller : MonoBehaviour
         print(goaledPieces + " out of " + totalPieces + " pieces goaled");
         if (goaledPieces >= totalPieces)
         {
-            winText.enabled = true;
-            winText.text = "You Win".ToString();
             playerAudioSource.PlayOneShot(victoryClip);
             GameManager.Instance.ProceedLevel();
         }
@@ -237,8 +229,6 @@ public class Player_Controller : MonoBehaviour
         if (moveCounterText != null) moveCounterText.text = "Moves Remaining: " + moveCounter.ToString();
         if (moveCounter <= 0)
         {
-            gameOverText.enabled = true;
-            gameOverText.text = "You Lose".ToString();
             playerAudioSource.PlayOneShot(defeatClip);
             GameManager.Instance.RestartLevel();
         }
