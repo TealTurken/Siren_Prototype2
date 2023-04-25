@@ -28,6 +28,7 @@ public class EnemyScript : MonoBehaviour
     
     [SerializeField]
     private GameObject highlightParticles;
+    private GameObject highlightParticlesInstance;
 
     void Start()
     {
@@ -132,12 +133,13 @@ public class EnemyScript : MonoBehaviour
 
     public void HoverOver()
     {
-        Instantiate(highlightParticles, gameObject.transform.position, Quaternion.identity);
+        highlightParticlesInstance = Instantiate(highlightParticles, gameObject.transform.position, Quaternion.identity);
         GetComponent<SpriteRenderer>().color = highLightColor;
     }
 
     public void Unhover()
     {
+        Destroy(highlightParticlesInstance);
         MouseUp = true;
         GetComponent<SpriteRenderer>().color = defaultColor;
     }
