@@ -45,6 +45,8 @@ public class EnemyScript : MonoBehaviour
     private void Update()
     {
         if (MouseUp && this.transform.parent == null) this.transform.SetParent(validwall.transform);
+
+        if (highlightParticlesInstance != null) highlightParticlesInstance.transform.position = this.transform.position;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -133,13 +135,16 @@ public class EnemyScript : MonoBehaviour
 
     public void HoverOver()
     {
+        for (int i = 0; i < GameObject.FindGameObjectsWithTag("SelectParticles").Length; i++)
+        {
+            Destroy(GameObject.FindGameObjectsWithTag("SelectParticles")[i]);
+        }     
         highlightParticlesInstance = Instantiate(highlightParticles, gameObject.transform.position, Quaternion.identity);
         GetComponent<SpriteRenderer>().color = highLightColor;
     }
 
     public void Unhover()
     {
-        Destroy(highlightParticlesInstance);
         MouseUp = true;
         GetComponent<SpriteRenderer>().color = defaultColor;
     }
