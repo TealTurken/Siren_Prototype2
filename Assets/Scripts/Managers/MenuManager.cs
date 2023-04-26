@@ -148,11 +148,13 @@ public class MenuManager : MonoBehaviour
         if(!isPaused)
         {
             Time.timeScale = 0.0f;
+            FindObjectOfType<Player_Controller>().isPaused = true;
             isPaused = true;
         }
         else
         {
             Time.timeScale = 1.0f;
+            FindObjectOfType<Player_Controller>().isPaused = false;
             isPaused = false;
         }
     }

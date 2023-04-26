@@ -42,6 +42,8 @@ public class Player_Controller : MonoBehaviour
 
     private TMP_Text moveCounterText;
     private TMP_Text levelText;
+    [NonSerialized]
+    public bool isPaused = false;
 
     private void Awake()
     {
@@ -92,7 +94,7 @@ public class Player_Controller : MonoBehaviour
     void Update()
     {
         #region Controls
-        if (RotateRight.triggered)
+        if (RotateRight.triggered && !isPaused)
         {
             if (moveCounter > 0)
             {
@@ -103,7 +105,7 @@ public class Player_Controller : MonoBehaviour
             }
         }
         
-        if (RotateLeft.triggered)
+        if (RotateLeft.triggered && !isPaused)
         {
             if (moveCounter > 0)
             {
