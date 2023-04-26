@@ -60,14 +60,17 @@ public class GameManager : MonoBehaviour
 
     IEnumerator FailScreen()
     {   
+        FindObjectOfType<Player_Controller>().isPaused = true;
         menuManager.LevelEndCanvas(false);
         yield return new WaitForSeconds(timeBeforeSceneChange);
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         menuManager.isMenuCanvasActive = false;
+        FindObjectOfType<Player_Controller>().isPaused = false;
     }
 
     IEnumerator WinScreen(bool gameWon)
     {
+        FindObjectOfType<Player_Controller>().isPaused = true;
         if (!gameWon)
         {
             menuManager.LevelEndCanvas(true);
@@ -76,6 +79,7 @@ public class GameManager : MonoBehaviour
             SceneManager.LoadScene($"Level {level}");
             menuManager.isMenuCanvasActive = false;
             backgroundMusic.pitch += pitchScale; 
+            FindObjectOfType<Player_Controller>().isPaused = false;
         }
         else
         {
@@ -86,6 +90,7 @@ public class GameManager : MonoBehaviour
             menuManager.isMenuCanvasActive = false;
             backgroundMusic.pitch = 1;
             restartClicked = false;
+            FindObjectOfType<Player_Controller>().isPaused = false;
         }
     }
 }

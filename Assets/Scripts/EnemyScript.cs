@@ -7,6 +7,7 @@ using UnityEngine;
 public class EnemyScript : MonoBehaviour
 {
     public GameObject goal;
+    public GameObject hazard;
     public GameObject GameBoard;
     [NonSerialized]
     public bool highlighted = false;
@@ -30,6 +31,7 @@ public class EnemyScript : MonoBehaviour
     private GameObject highlightParticlesInstance;
     private GameObject collisionParticles;
     private GameObject victoryParticles;
+    private GameObject defeatParticles;
 
     void Start()
     {
@@ -45,6 +47,7 @@ public class EnemyScript : MonoBehaviour
         highlightParticles = Resources.Load<GameObject>("SelectHighlight");
         collisionParticles = Resources.Load<GameObject>("CollisionParticles");
         victoryParticles = Resources.Load<GameObject>("VictoryParticles");
+        defeatParticles = Resources.Load<GameObject>("DefeatParticles");
     }
 
     private void Update()
@@ -63,11 +66,18 @@ public class EnemyScript : MonoBehaviour
                 Vector2 midpoint = Vector2.Lerp(collision.gameObject.transform.position, gameObject.transform.position, 0.5f);
                 Instantiate(collisionParticles, midpoint, collision.gameObject.transform.rotation);
             }
-            if (collision.gameObject == goal)
+            if (collision.gameObject == goal && playerController.isPaused == false)
             {
                 Instantiate(victoryParticles, collision.gameObject.transform.position, collision.gameObject.transform.rotation);
                 Destroy(collision.gameObject);
                 playerController.LevelCompletion(); // update level completion progress
+            }
+            if (collision.gameObject == hazard && playerController.isPaused == false)
+            {
+                Debug.Log("defeat");
+                Instantiate(defeatParticles, collision.gameObject.transform.position, collision.gameObject.transform.rotation);
+                Destroy(collision.gameObject);
+                GameManager.Instance.RestartLevel();
             }
     }
 
