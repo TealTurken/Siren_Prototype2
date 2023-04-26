@@ -26,9 +26,10 @@ public class EnemyScript : MonoBehaviour
 
     private AudioSource enemyAudioSource;
     
-    [SerializeField]
     private GameObject highlightParticles;
     private GameObject highlightParticlesInstance;
+    private GameObject collisionParticles;
+    private GameObject victoryParticles;
 
     void Start()
     {
@@ -40,6 +41,10 @@ public class EnemyScript : MonoBehaviour
         selectedColor = Color.red;
         enemyAudioSource = GetComponent<AudioSource>();
         constForce2D = GetComponent<ConstantForce2D>();
+
+        highlightParticles = Resources.Load<GameObject>("SelectHighlight");
+        collisionParticles = Resources.Load<GameObject>("CollisionParticles");
+        victoryParticles = Resources.Load<GameObject>("VictoryParticles");
     }
 
     private void Update()
@@ -55,9 +60,12 @@ public class EnemyScript : MonoBehaviour
             {
                 validwall = collision.gameObject;
                 enemyAudioSource.Play(); // impact with wall noise
+                Vector2 midpoint = Vector2.Lerp(collision.gameObject.transform.position, gameObject.transform.position, 0.5f);
+                Instantiate(collisionParticles, midpoint, collision.gameObject.transform.rotation);
             }
             if (collision.gameObject == goal)
             {
+                Instantiate(victoryParticles, collision.gameObject.transform.position, collision.gameObject.transform.rotation);
                 Destroy(collision.gameObject);
                 playerController.LevelCompletion(); // update level completion progress
             }
@@ -135,11 +143,23 @@ public class EnemyScript : MonoBehaviour
 
     public void HoverOver()
     {
-        for (int i = 0; i < GameObject.FindGameObjectsWithTag("SelectParticles").Length; i++)
+        GameObject[] particles = GameObject.FindGameObjectsWithTag("SelectParticles");
+        if (particles.Length == 0) 
         {
-            Destroy(GameObject.FindGameObjectsWithTag("SelectParticles")[i]);
-        }     
-        highlightParticlesInstance = Instantiate(highlightParticles, gameObject.transform.position, Quaternion.identity);
+            highlightParticlesInstance = Instantiate(highlightParticles, gameObject.transform.position, Quaternion.identity);
+        }
+        else
+        {
+            for (int i = 0; i < particles.Length; i++)
+            {
+                if (Vector2.Distance(particles[i].transform.position, gameObject.transform.position) > 0.1f)
+                {
+                    Destroy(particles[i]);
+                    highlightParticlesInstance = Instantiate(highlightParticles, gameObject.transform.position, Quaternion.identity);
+                }     
+            }     
+        }
+        
         GetComponent<SpriteRenderer>().color = highLightColor;
     }
 

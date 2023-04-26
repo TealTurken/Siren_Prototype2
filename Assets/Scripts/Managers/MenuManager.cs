@@ -18,6 +18,7 @@ public class MenuManager : MonoBehaviour
     private CanvasGroup levelEndCanvasGroup;
     private CanvasGroup gameEndCanvasGroup;
 
+    private Button playButton;
     private Button howToPlayButton;
     private Button howToPlayBackButton;
     private Button optionsButton;
@@ -27,6 +28,7 @@ public class MenuManager : MonoBehaviour
 
     private Button quitYes;
     private Button quitNo;
+    private Button quitMenu;
 
     private Button gameEndMenuButton;
     private Button gameEndQuitButton;
@@ -105,10 +107,20 @@ public class MenuManager : MonoBehaviour
         //Quit controls
         quitYes = GameObject.Find("YesButton").GetComponent<Button>();
         quitNo = GameObject.Find("NoButton").GetComponent<Button>();
+        quitMenu = GameObject.Find("QuitMenuButton").GetComponent<Button>();
         quitYes.onClick.RemoveAllListeners();
         quitYes.onClick.AddListener(Quit);
         quitNo.onClick.RemoveAllListeners();
         quitNo.onClick.AddListener(QuitCanvas);
+        quitMenu.onClick.RemoveAllListeners();
+        quitMenu.onClick.AddListener(GoToMainMenu);
+
+        if (SceneManager.GetActiveScene().name == "Main Menu")
+        {
+            playButton = GameObject.Find("Play Button").GetComponent<Button>();
+            playButton.onClick.RemoveAllListeners();
+            playButton.onClick.AddListener(PlayGame);
+        }
 
         //Buttons only pause when not on main menu
         if (SceneManager.GetActiveScene().name != "Main Menu")
@@ -120,6 +132,7 @@ public class MenuManager : MonoBehaviour
             howToPlayBackButton.onClick.AddListener(PauseGame);
             optionsBackButton.onClick.AddListener(PauseGame);
             quitNo.onClick.AddListener(PauseGame);
+            quitMenu.onClick.AddListener(PauseGame);
         }
 
         //Sets game end controls only when not on main menu
@@ -231,6 +244,13 @@ public class MenuManager : MonoBehaviour
     public void RestartGame()
     {
         GameManager.Instance.restartClicked = true;
+    }
+
+    public void GoToMainMenu()
+    {
+        QuitCanvas();
+        SceneManager.LoadScene("Main Menu");
+        GameManager.Instance.level = 0;
     }
 
     //Either opens or closes canvas parameter

@@ -15,6 +15,7 @@ TagManager:
   - HowToPlay Back
   - Options Back
   - Quit
+  - SelectParticles
   layers:
   - Default
   - TransparentFX
