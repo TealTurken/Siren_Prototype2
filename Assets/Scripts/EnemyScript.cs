@@ -14,7 +14,6 @@ public class EnemyScript : MonoBehaviour
     [NonSerialized]
     public Color defaultColor;
     private float magnetizeTime = 0f;
-    private Color highLightColor;
     private Color selectedColor;
     private Player_Controller playerController;
     private GameObject validwall;
@@ -39,7 +38,6 @@ public class EnemyScript : MonoBehaviour
         if (GameBoard == null) GameBoard = GameObject.FindGameObjectWithTag("Board");
         playerController = GameBoard.GetComponent<Player_Controller>();
         defaultColor = Color.white;
-        highLightColor = Color.black;
         selectedColor = Color.red;
         enemyAudioSource = GetComponent<AudioSource>();
         constForce2D = GetComponent<ConstantForce2D>();
@@ -62,9 +60,13 @@ public class EnemyScript : MonoBehaviour
             if (collision.gameObject.CompareTag("Wall")) // only concerned with this if our piece has no parent object
             {
                 validwall = collision.gameObject;
-                enemyAudioSource.Play(); // impact with wall noise
                 Vector2 midpoint = Vector2.Lerp(collision.gameObject.transform.position, gameObject.transform.position, 0.5f);
-                Instantiate(collisionParticles, midpoint, collision.gameObject.transform.rotation);
+               
+                if (GameObject.FindGameObjectWithTag("CollisionParticles") == null)
+                {
+                    enemyAudioSource.Play(); // impact with wall noise
+                    Instantiate(collisionParticles, midpoint, collision.gameObject.transform.rotation);
+                }
             }
             if (collision.gameObject == goal && playerController.isPaused == false)
             {
@@ -169,8 +171,6 @@ public class EnemyScript : MonoBehaviour
                 }     
             }     
         }
-        
-        GetComponent<SpriteRenderer>().color = highLightColor;
     }
 
     public void Unhover()

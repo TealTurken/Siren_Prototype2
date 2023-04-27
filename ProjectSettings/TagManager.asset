@@ -16,6 +16,7 @@ TagManager:
   - Options Back
   - Quit
   - SelectParticles
+  - CollisionParticles
   layers:
   - Default
   - TransparentFX

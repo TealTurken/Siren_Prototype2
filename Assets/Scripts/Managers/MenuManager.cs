@@ -26,6 +26,9 @@ public class MenuManager : MonoBehaviour
     private Button quitButton;
     private Button quitBackButton;
 
+    private Button rotateLeftButton;
+    private Button rotateRightButton;
+
     private Button quitYes;
     private Button quitNo;
     private Button quitMenu;
@@ -81,6 +84,7 @@ public class MenuManager : MonoBehaviour
         quitButton.onClick.RemoveAllListeners();
         quitButton.onClick.AddListener(QuitCanvas);
 
+
         //Back canvases (for main menu)
         howToPlayBackCanvasGroup = GameObject.FindGameObjectsWithTag("HowToPlay Back")[0].GetComponent<CanvasGroup>();
         optionsBackCanvasGroup = GameObject.FindGameObjectsWithTag("Options Back")[0].GetComponent<CanvasGroup>();
@@ -133,6 +137,18 @@ public class MenuManager : MonoBehaviour
             optionsBackButton.onClick.AddListener(PauseGame);
             quitNo.onClick.AddListener(PauseGame);
             quitMenu.onClick.AddListener(PauseGame);
+        }
+
+        //Initializes rotate buttons when not on main menu
+        if (SceneManager.GetActiveScene().name != "Main Menu")
+        {
+            rotateLeftButton = GameObject.Find("RotateLeft Button").GetComponent<Button>();
+            rotateRightButton = GameObject.Find("RotateRight Button").GetComponent<Button>();
+            Debug.Log(rotateRightButton);
+            rotateLeftButton.onClick.RemoveAllListeners();
+            rotateLeftButton.onClick.AddListener(RotateLeft);
+            rotateRightButton.onClick.RemoveAllListeners();
+            rotateRightButton.onClick.AddListener(RotateRight);
         }
 
         //Sets game end controls only when not on main menu
@@ -239,6 +255,20 @@ public class MenuManager : MonoBehaviour
     public void GameEndCanvas()
     {
         ToggleCanvas(gameEndCanvasGroup);
+    }
+
+    public void RotateLeft()
+    {
+        FindObjectOfType<Player_Controller>().isRotateRight = false;
+        FindObjectOfType<Player_Controller>().DoRotate();
+        FindObjectOfType<Player_Controller>().UpdateMoveCounter();
+    }
+
+    public void RotateRight()
+    {
+        FindObjectOfType<Player_Controller>().isRotateRight = true;
+        FindObjectOfType<Player_Controller>().DoRotate();
+        FindObjectOfType<Player_Controller>().UpdateMoveCounter();
     }
 
     public void RestartGame()

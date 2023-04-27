@@ -101,7 +101,6 @@ public class Player_Controller : MonoBehaviour
                 isRotateRight = true;
                 UpdateMoveCounter();
                 DoRotate();
-                playerAudioSource.PlayOneShot(rotateClip);
             }
         }
         
@@ -112,7 +111,6 @@ public class Player_Controller : MonoBehaviour
                 isRotateRight = false;
                 UpdateMoveCounter();
                 DoRotate();
-                playerAudioSource.PlayOneShot(rotateClip);
             }
         }
         
@@ -225,7 +223,7 @@ public class Player_Controller : MonoBehaviour
         gameBoard.transform.rotation = Quaternion.Slerp(gameBoard.transform.rotation, currentAngle, 0.02f);
     }
 
-    private void UpdateMoveCounter()
+    public void UpdateMoveCounter()
     {
         moveCounter -= 1;
         if (moveCounterText != null) moveCounterText.text = "Moves Remaining: " + moveCounter.ToString();
@@ -233,6 +231,10 @@ public class Player_Controller : MonoBehaviour
         {
             playerAudioSource.PlayOneShot(defeatClip);
             GameManager.Instance.RestartLevel();
+        }
+        else
+        {
+            playerAudioSource.PlayOneShot(rotateClip);
         }
     }
     private void OnCollisionEnter2D(Collision2D collision)
