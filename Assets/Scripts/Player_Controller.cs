@@ -44,6 +44,9 @@ public class Player_Controller : MonoBehaviour
     private TMP_Text levelText;
     [NonSerialized]
     public bool isPaused = false;
+    private bool isRotating = false;
+    public float rotationLock = 20.0f;
+    private float WaitToFinishRotatingTime;
 
     private void Awake()
     {
@@ -52,6 +55,7 @@ public class Player_Controller : MonoBehaviour
 
     void Start()
     {
+        WaitToFinishRotatingTime = rotationLock;
         if (Convert.ToBoolean(PlayerPrefs.GetInt("99Moves")) == true) moveCounter = 99;
 
         if (GameObject.Find("MoveCounter") != null) moveCounterText = GameObject.Find("MoveCounter").GetComponent<TMP_Text>();
@@ -94,7 +98,7 @@ public class Player_Controller : MonoBehaviour
     void Update()
     {
         #region Controls
-        if (RotateRight.triggered && !isPaused)
+        if (RotateRight.triggered && !isPaused && !isRotating)
         {
             if (moveCounter > 0)
             {
@@ -104,7 +108,7 @@ public class Player_Controller : MonoBehaviour
             }
         }
         
-        if (RotateLeft.triggered && !isPaused)
+        if (RotateLeft.triggered && !isPaused && !isRotating)
         {
             if (moveCounter > 0)
             {
@@ -176,6 +180,15 @@ public class Player_Controller : MonoBehaviour
             }
         }
         #endregion controls
+        if (isRotating)
+        {
+            WaitToFinishRotatingTime -= 0.1f;
+            if (WaitToFinishRotatingTime <= 0.0f)
+            {
+                isRotating = false;
+                WaitToFinishRotatingTime = rotationLock;
+            }
+        }
         RotateBoard();
     }
 
@@ -185,24 +198,28 @@ public class Player_Controller : MonoBehaviour
         {
             if (isRotateRight) currentAngle = angle_270;
             else currentAngle = angle_90;
+            isRotating = true;
             return;
         }
         else if (currentAngle == angle_90)
         {
             if (isRotateRight) currentAngle = angle_00;
             else currentAngle = angle_180;
+            isRotating = true;
             return;
         }
         else if (currentAngle == angle_180)
         {
             if (isRotateRight) currentAngle = angle_90;
             else currentAngle = angle_270;
+            isRotating = true;
             return;
         }
         else if (currentAngle == angle_270)
         {
             if (isRotateRight) currentAngle = angle_180;
             else currentAngle = angle_00;
+            isRotating = true;
             return;
         }
     }
