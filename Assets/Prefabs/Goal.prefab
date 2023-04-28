@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 8613197696606596009}
   - component: {fileID: 5551258888353197664}
   - component: {fileID: 1378048750672065207}
-  - component: {fileID: 9091492944260395714}
   m_Layer: 0
   m_Name: Goal
   m_TagString: Goal
@@ -33,7 +32,7 @@ Transform:
   m_Children:
   - {fileID: 4556897368900689962}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &5551258888353197664
 SpriteRenderer:
@@ -132,33 +131,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!50 &9091492944260395714
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6880799146516532030}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 0
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 3
 --- !u!1 &8649218087863912629
 GameObject:
   m_ObjectHideFlags: 0

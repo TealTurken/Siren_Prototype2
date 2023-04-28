@@ -1,13 +1,14 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 
 public class EnemyScript : MonoBehaviour
 {
     public GameObject goal;
-    public GameObject hazard;
+    public GameObject[] hazards;
     public GameObject GameBoard;
     [NonSerialized]
     public bool highlighted = false;
@@ -74,7 +75,7 @@ public class EnemyScript : MonoBehaviour
                 Destroy(collision.gameObject);
                 playerController.LevelCompletion(); // update level completion progress
             }
-            if (collision.gameObject == hazard && playerController.isPaused == false)
+            if (hazards.Any(hazard => hazard == collision.gameObject) && playerController.isPaused == false)
             {
                 Debug.Log("defeat");
                 Instantiate(defeatParticles, collision.gameObject.transform.position, collision.gameObject.transform.rotation);
@@ -86,7 +87,7 @@ public class EnemyScript : MonoBehaviour
     private void OnCollisionStay2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Wall")) magnetizeTime += Time.deltaTime;
-        if (magnetizeTime >= 1.0f && !this.transform.parent.CompareTag("Wall")) // prevents sticking to walls from an initial contact
+        if (magnetizeTime >= 0.75f && !this.transform.parent.CompareTag("Wall")) // prevents sticking to walls from an initial contact
         {
             this.transform.SetParent(validwall.transform);
             this.GetComponent<Rigidbody2D>().freezeRotation = false;

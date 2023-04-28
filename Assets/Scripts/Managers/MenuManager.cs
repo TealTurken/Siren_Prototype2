@@ -121,6 +121,15 @@ public class MenuManager : MonoBehaviour
 
         if (SceneManager.GetActiveScene().name == "Main Menu")
         {
+            FindObjectOfType<Player_Controller>().isPaused = true;
+        }
+        else
+        {
+            FindObjectOfType<Player_Controller>().isPaused = false;
+        }
+
+        if (SceneManager.GetActiveScene().name == "Main Menu")
+        {
             playButton = GameObject.Find("Play Button").GetComponent<Button>();
             playButton.onClick.RemoveAllListeners();
             playButton.onClick.AddListener(PlayGame);
@@ -259,16 +268,23 @@ public class MenuManager : MonoBehaviour
 
     public void RotateLeft()
     {
+
         FindObjectOfType<Player_Controller>().isRotateRight = false;
-        FindObjectOfType<Player_Controller>().DoRotate();
-        FindObjectOfType<Player_Controller>().UpdateMoveCounter();
+        if (FindObjectOfType<Player_Controller>().isRotating == false)
+        {
+            FindObjectOfType<Player_Controller>().DoRotate();
+            FindObjectOfType<Player_Controller>().UpdateMoveCounter();
+        }
     }
 
     public void RotateRight()
     {
         FindObjectOfType<Player_Controller>().isRotateRight = true;
-        FindObjectOfType<Player_Controller>().DoRotate();
-        FindObjectOfType<Player_Controller>().UpdateMoveCounter();
+        if (FindObjectOfType<Player_Controller>().isRotating == false)
+        {
+            FindObjectOfType<Player_Controller>().DoRotate();
+            FindObjectOfType<Player_Controller>().UpdateMoveCounter();
+        }
     }
 
     public void RestartGame()

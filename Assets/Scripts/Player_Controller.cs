@@ -44,7 +44,7 @@ public class Player_Controller : MonoBehaviour
     private TMP_Text levelText;
     [NonSerialized]
     public bool isPaused = false;
-    private bool isRotating = false;
+    public bool isRotating = false;
     public float rotationLock = 20.0f;
     private float WaitToFinishRotatingTime;
 
